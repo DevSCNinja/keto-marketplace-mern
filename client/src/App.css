@@ -1,0 +1,150 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, tr, th, td, div, ul, li, input, label, textarea {
+  font-family: 'Montserrat', sans-serif;
+}
+
+hr {
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+}
+
+.font-18 {
+  font-size: 18px !important;
+}
+
+.font-15 {
+  font-size: 15px !important;
+}
+
+.font-12 {
+  font-size: 12px !important;
+}
+
+.font-21 {
+  font-size: 21px !important;
+}
+
+.font-22 {
+  font-size: 22px !important;
+}
+
+.font-36 {
+  font-size: 36px !important;
+  font: bold;
+}
+
+.font-bold {
+  font-weight: bold !important;
+}
+
+.sidebar {
+  min-height: 100vh;
+  border-right: 1px solid #BBBBBB;
+}
+
+.signoutLink {
+  position: fixed;
+  bottom: 20px;
+  width: 16.666667% !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    min-height: inherit;
+  }
+  .signoutLink {
+    position: inherit;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 100% !important;
+  }
+}
+
+.menuItem {
+  font-size: 18px;
+  color: #000000;
+}
+
+.menuItem:hover {
+  background-color: rgba(61, 189, 143, 0.4);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: rgba(61, 189, 143, 0.4);
+}
+
+.top-border {
+  border-top: 1px solid #aaaaaa;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bg-login {
+  background-color: #3DBD8F;
+  min-height: 100vh;
+}
+
+.bg-keto-secondary {
+  background-color: #F5F7FB;
+}
+
+.color-keto-secondary {
+  color: #929292;
+}
+
+.color-keto-primary {
+  color: #3DBD8F;
+}
+
+.table {
+  font-size: 13px !important;
+  margin-bottom: 0px !important;
+}
+
+.admin-dashboard th, .admin-dashboard td {
+  padding: 2px !important;
+}
+
+table tbody tr td {
+  vertical-align: middle !important;
+}
+
+.keto-shadow {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.keto-rounded-lg {
+  border-radius: 10px !important;
+}
+
+.admin-affiliates .table {
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.badge {
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.badge-keto-primary {
+  border: 1px solid #3DBD8F !important;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #3DBD8F;
+  color: #3DBD8F;
+}
+
+.admin-products th, .admin-products td {
+  padding: 2px !important;
+}
+
+.product-image-border {
+  border-radius: 5px !important;
+}

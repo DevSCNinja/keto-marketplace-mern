@@ -1,1 +1,5 @@
-# keto-marketplace-mern
+# Start
+npm run dev
+
+# Build
+npm run build

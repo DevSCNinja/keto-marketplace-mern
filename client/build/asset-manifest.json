@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7452d717.chunk.css",
+    "main.js": "/static/js/main.b6a1272b.chunk.js",
+    "main.js.map": "/static/js/main.b6a1272b.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.71c5bbf3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.71c5bbf3.js.map",
+    "static/css/2.a4a457b0.chunk.css": "/static/css/2.a4a457b0.chunk.css",
+    "static/js/2.d0fccc2f.chunk.js": "/static/js/2.d0fccc2f.chunk.js",
+    "static/js/2.d0fccc2f.chunk.js.map": "/static/js/2.d0fccc2f.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.a4a457b0.chunk.css.map": "/static/css/2.a4a457b0.chunk.css.map",
+    "static/css/main.7452d717.chunk.css.map": "/static/css/main.7452d717.chunk.css.map",
+    "static/js/2.d0fccc2f.chunk.js.LICENSE.txt": "/static/js/2.d0fccc2f.chunk.js.LICENSE.txt",
+    "static/media/academySelected.8988bca0.PNG": "/static/media/academySelected.8988bca0.PNG",
+    "static/media/affiliates.ae7814e5.PNG": "/static/media/affiliates.ae7814e5.PNG",
+    "static/media/analytics.a565aa17.PNG": "/static/media/analytics.a565aa17.PNG",
+    "static/media/dashboard.7b89bdcf.PNG": "/static/media/dashboard.7b89bdcf.PNG",
+    "static/media/logo.204fa6c6.PNG": "/static/media/logo.204fa6c6.PNG",
+    "static/media/logout.7673cce9.PNG": "/static/media/logout.7673cce9.PNG",
+    "static/media/notifications.css": "/static/media/notification.c5d9251e.ttf",
+    "static/media/product.34c06048.PNG": "/static/media/product.34c06048.PNG",
+    "static/media/product.63b38c91.PNG": "/static/media/product.63b38c91.PNG",
+    "static/media/settings.f52693c9.PNG": "/static/media/settings.f52693c9.PNG"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.71c5bbf3.js",
+    "static/css/2.a4a457b0.chunk.css",
+    "static/js/2.d0fccc2f.chunk.js",
+    "static/css/main.7452d717.chunk.css",
+    "static/js/main.b6a1272b.chunk.js"
+  ]
+}
