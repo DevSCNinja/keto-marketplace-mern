@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import productImage from '../../img/product.PNG'
+import ReactStars from "react-rating-stars-component"
 
 const AdminProducts = () => {
 
@@ -22,9 +23,13 @@ const AdminProducts = () => {
                     <div className='font-18'>
                       Keto Elevate™ — C8 MCT Oil Powder
                     </div>
-                    <div>
-                      Stars
-                    </div>
+                    <ReactStars
+                      value={3.5}
+                      size={24}
+                      isHalf={true}
+                      edit={false}
+                      activeColor="#3DBD8F"
+                    />
                   </div>
                 </div>
               </div>

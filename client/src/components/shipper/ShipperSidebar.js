@@ -3,15 +3,11 @@ import { connect } from 'react-redux'
 import { logout } from '../../actions/auth'
 import { useHistory } from 'react-router-dom'
 import { setCurrentPage } from '../../actions/admin'
-import dashboardImage from '../../img/icons/dashboard.PNG'
-import productImage from '../../img/icons/product.PNG'
-import analyticsImage from '../../img/icons/analytics.PNG'
-import affiliatesImage from '../../img/icons/affiliates.PNG'
 import settingsImage from '../../img/icons/settings.PNG'
 import storeImage from '../../img/icons/store.PNG'
 import logoutImage from '../../img/icons/logout.PNG'
 
-const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
+const ShipperSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
   let history = useHistory()
 
   const goPage = async location => {
@@ -37,30 +33,6 @@ const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
         </div>
         <div className='top-border p-2 pt-3'>
           <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'dashboard' ? 'selected' : '')} onClick={() => goPage('dashboard')}>
-            <div className='d-flex align-items-center'>
-              <div><img src={dashboardImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
-              <div>Dashboard</div>
-            </div>
-          </div>
-          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'affiliates' ? 'selected' : '')} onClick={() => goPage('affiliates')}>
-            <div className='d-flex align-items-center'>
-              <div><img src={affiliatesImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
-              <div>Affiliates</div>
-            </div>
-          </div>
-          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'products' ? 'selected' : '')} onClick={() => goPage('products')}>
-            <div className='d-flex align-items-center'>
-              <div><img src={productImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
-              <div>Products</div>
-            </div>
-          </div>
-          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'analytics' ? 'selected' : '')} onClick={() => goPage('analytics')}>
-            <div className='d-flex align-items-center'>
-              <div><img src={analyticsImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
-              <div>Analytics</div>
-            </div>
-          </div>
-          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'openedOrders' ? 'selected' : '')} onClick={() => goPage('openedOrders')}>
             <div className='d-flex align-items-center'>
               <div><img src={storeImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
               <div>Open Orders</div>
@@ -102,4 +74,4 @@ const mapStateToProps = state => ({
   currentPage: state.admin.currentPage
 })
 
-export default connect(mapStateToProps, { logout, setCurrentPage })(AdminSidebar)
+export default connect(mapStateToProps, { logout, setCurrentPage })(ShipperSidebar)

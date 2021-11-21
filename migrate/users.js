@@ -10,7 +10,7 @@ const users = [
     type: 'admin',
     name: 'Steven Hooley',
     email: 'steven@hooley.me',
-    avatar: normalize(gravatar.url('Steven@hooley.me', { s: '200', r: 'pg', d: 'mm' }), { forceHttps: true }),
+    avatar: normalize(gravatar.url('steven@hooley.me', { s: '200', r: 'pg', d: 'mm' }), { forceHttps: true }),
     password: bcrypt.hashSync('admin123', salt),
     passwordForUpdate: 'admin123'
   },
@@ -29,7 +29,15 @@ const users = [
     avatar: normalize(gravatar.url('ilia@siliconslopesconsulting.com', { s: '200', r: 'pg', d: 'mm' }), { forceHttps: true }),
     password: bcrypt.hashSync('admin123', salt),
     passwordForUpdate: 'admin123'
-  }
+  },
+  {
+    type: 'shipper',
+    name: 'King1',
+    email: 'progdev77@gmail.com',
+    avatar: normalize(gravatar.url('progdev77@gmail.com', { s: '200', r: 'pg', d: 'mm' }), { forceHttps: true }),
+    password: bcrypt.hashSync('admin123', salt),
+    passwordForUpdate: 'admin123'
+  },
 ]
 
 module.exports = users;

@@ -11,16 +11,16 @@ hr {
   margin-bottom: 6px !important;
 }
 
-.font-18 {
-  font-size: 18px !important;
+.font-12 {
+  font-size: 12px !important;
 }
 
 .font-15 {
   font-size: 15px !important;
 }
 
-.font-12 {
-  font-size: 12px !important;
+.font-18 {
+  font-size: 18px !important;
 }
 
 .font-21 {
@@ -29,6 +29,10 @@ hr {
 
 .font-22 {
   font-size: 22px !important;
+}
+
+.font-24 {
+  font-size: 24px !important;
 }
 
 .font-36 {
@@ -60,6 +64,9 @@ hr {
     margin-top: 30px;
     margin-bottom: 10px;
     width: 100% !important;
+  }
+  .font-36 {
+    font-size: 30px !important;
   }
 }
 
@@ -147,4 +154,9 @@ table tbody tr td {
 
 .product-image-border {
   border-radius: 5px !important;
+}
+
+.store-image {
+  width: 100%;
+  aspect-ratio: 4/3;
 }

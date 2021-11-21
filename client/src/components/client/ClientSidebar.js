@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { logout } from '../../actions/auth'
 import { useHistory } from 'react-router-dom'
 import { setCurrentPage } from '../../actions/admin'
-import academyImage from '../../img/icons/academySelected.PNG'
+import academyImage from '../../img/icons/academy.PNG'
+import storeImage from '../../img/icons/store.PNG'
 import settingsImage from '../../img/icons/settings.PNG'
 import logoutImage from '../../img/icons/logout.PNG'
 
@@ -38,10 +39,15 @@ const ClientSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
               <div>Academy</div>
             </div>
           </div>
+          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'store' ? 'selected' : '')} onClick={() => goPage('store')}>
+            <div className='d-flex align-items-center'>
+              <div><img src={storeImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
+              <div>Store</div>
+            </div>
+          </div>
         </div>
 
         <div className='signoutLink top-border p-2 pt-3'>
-          
           <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'settings' ? 'selected' : '')} onClick={() => goPage('settings')}>
             <div className='d-flex align-items-center'>
               <div><img src={settingsImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>

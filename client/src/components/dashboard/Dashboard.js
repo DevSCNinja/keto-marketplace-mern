@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import Admin from '../admin/Admin'
 import Affiliate from '../affiliate/Affiliate'
 import Client from '../client/Client'
+import Shipper from '../shipper/Shipper'
 import { logout } from '../../actions/auth'
 
 const Dashboard = ({ isAuthenticated, user, logout }) => {
@@ -18,6 +19,10 @@ const Dashboard = ({ isAuthenticated, user, logout }) => {
   } else if (isAuthenticated && user && user.type === "client") {
     return (
       <Client />
+    )
+  } else if (isAuthenticated && user && user.type === "shipper") {
+    return (
+      <Shipper />
     )
   } else if (isAuthenticated !== true) {
     return <Redirect to={'/'} />
