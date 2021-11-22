@@ -75,5 +75,33 @@ export const login = (email, password) => async dispatch => {
   }
 }
 
+// Forgot Password
+export const forgotPassword = (email) => async dispatch => {
+  try {
+    const res = await api.get(`/auth/forgotPassword/${email}`)
+    dispatch(setAlert(res.data.sent[0].msg, 'success'))
+  } catch (err) {
+    const errors = err.response.data.errors
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+    }
+  }
+}
+
+// Reset Password
+export const resetPassword = (formData, history) => async dispatch => {
+  try {
+    const res = await api.post('/auth/resetPassword', formData)
+    dispatch(setAlert(res.data.sent[0].msg, 'success'))
+    history.push('/login')
+  } catch (err) {
+    const errors = err.response.data.errors
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+    }
+  }
+}
+
 // Logout
 export const logout = () => ({ type: LOGOUT })

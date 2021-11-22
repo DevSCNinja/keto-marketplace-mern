@@ -98,6 +98,12 @@ hr {
   min-height: 100vh;
 }
 
+.bg-login .form-label {
+  text-decoration: none;
+  color: white;
+  float: right;
+}
+
 .bg-keto-secondary {
   background-color: #F5F7FB;
 }

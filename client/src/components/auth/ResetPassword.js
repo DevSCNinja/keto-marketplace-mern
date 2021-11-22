@@ -1,28 +1,17 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { login } from '../../actions/auth'
+import { resetPassword } from '../../actions/auth'
 import logo from '../../img/logo.PNG'
 
-const Login = ({ login, isAuthenticated }) => {
-  const [formData, setFormData] = React.useState({
-    email: '',
-    password: ''
-  })
-
-  const { email, password } = formData
-
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+const ForgotPassword = ({ match, resetPassword }) => {
+  let history = useHistory()
+  const userID = match.params.id
+  const [password, setPassword] = React.useState('')
 
   const onSubmit = e => {
     e.preventDefault()
-    login(email, password)
-  }
-
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />
+    resetPassword({ userID, password }, history)
   }
 
   return (
@@ -50,35 +39,25 @@ const Login = ({ login, isAuthenticated }) => {
               <div className='row height-center'>
                 <div className='col'>
                   <form className='form' onSubmit={onSubmit}>
+                    <label className='text-white'>New Password</label>
                     <div className='form-group'>
                       <input
-                        type='email'
-                        placeholder='email'
-                        name='email'
-                        className='form-control'
-                        value={email}
-                        onChange={onChange}
+                        type="text"
+                        className="form-control"
+                        placeholder="PASSWORD"
+                        name="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        minLength="6"
                         required
                       />
                     </div>
                     <div className='form-group'>
                       <input
-                        type='password'
-                        placeholder='Password'
-                        name='password'
-                        className='form-control'
-                        value={password}
-                        onChange={onChange}
-                        minLength='6'
-                      />
-                    </div>
-                    <Link to="/forgotPassword" className="form-label pb-2">Forgot password?</Link>
-                    <div className='form-group'>
-                      <input
                         type='submit'
                         className='form-control btn'
                         style={{ backgroundColor: '#B098E6', color: 'white' }}
-                        value='Login'
+                        value='SUBMIT'
                       />
                     </div>
                     <div className='form-group'>
@@ -87,7 +66,7 @@ const Login = ({ login, isAuthenticated }) => {
                         className='btn form-control'
                         style={{ backgroundColor: '#B098E6', color: 'white' }}
                       >
-                        Register
+                        Login
                       </Link>
                     </div>
                   </form>
@@ -103,13 +82,7 @@ const Login = ({ login, isAuthenticated }) => {
   )
 }
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
-}
-
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { resetPassword })(ForgotPassword)

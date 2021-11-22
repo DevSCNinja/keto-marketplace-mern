@@ -1,28 +1,22 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { login } from '../../actions/auth'
+import { forgotPassword } from '../../actions/auth'
 import logo from '../../img/logo.PNG'
 
-const Login = ({ login, isAuthenticated }) => {
+const ForgotPassword = ({ forgotPassword }) => {
   const [formData, setFormData] = React.useState({
-    email: '',
-    password: ''
+    email: ''
   })
 
-  const { email, password } = formData
+  const { email } = formData
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const onSubmit = e => {
     e.preventDefault()
-    login(email, password)
-  }
-
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />
+    forgotPassword(email)
   }
 
   return (
@@ -50,6 +44,7 @@ const Login = ({ login, isAuthenticated }) => {
               <div className='row height-center'>
                 <div className='col'>
                   <form className='form' onSubmit={onSubmit}>
+                    <label className='text-white'>Email</label>
                     <div className='form-group'>
                       <input
                         type='email'
@@ -63,22 +58,10 @@ const Login = ({ login, isAuthenticated }) => {
                     </div>
                     <div className='form-group'>
                       <input
-                        type='password'
-                        placeholder='Password'
-                        name='password'
-                        className='form-control'
-                        value={password}
-                        onChange={onChange}
-                        minLength='6'
-                      />
-                    </div>
-                    <Link to="/forgotPassword" className="form-label pb-2">Forgot password?</Link>
-                    <div className='form-group'>
-                      <input
                         type='submit'
                         className='form-control btn'
                         style={{ backgroundColor: '#B098E6', color: 'white' }}
-                        value='Login'
+                        value='SUBMIT'
                       />
                     </div>
                     <div className='form-group'>
@@ -87,7 +70,7 @@ const Login = ({ login, isAuthenticated }) => {
                         className='btn form-control'
                         style={{ backgroundColor: '#B098E6', color: 'white' }}
                       >
-                        Register
+                        Login
                       </Link>
                     </div>
                   </form>
@@ -103,13 +86,7 @@ const Login = ({ login, isAuthenticated }) => {
   )
 }
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
-}
-
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { forgotPassword })(ForgotPassword)
