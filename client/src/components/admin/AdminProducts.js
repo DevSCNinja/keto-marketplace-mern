@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import productImage from '../../img/product.PNG'
 import ReactStars from "react-rating-stars-component"
@@ -7,8 +8,9 @@ const AdminProducts = () => {
 
   return (
     <div className='admin-products'>
-      <div>
-        <div className='font-36 pt-3'>Products</div>
+      <div className='d-flex align-items-center pt-3'>
+        <div className='font-36 mr-2'>Products</div>
+        <Link to='create-product'><i className='fa fa-plus-circle font-24 cursor-pointer pt-2'></i></Link>
       </div>
       <div className='row my-3'>
         <div className='col-lg-12'>

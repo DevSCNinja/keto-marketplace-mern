@@ -13,6 +13,7 @@ app.use(express.json());
 // Define Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/product', require('./routes/api/product'));
 
 // Serve frontend built
 app.use(express.static(__dirname + '/client/build'))

@@ -11,6 +11,7 @@ import AdminSettings from './AdminSettings'
 import AdminOrderDetail from './AdminOrderDetail'
 import AdminClosedOrders from './AdminClosedOrders'
 import AdminOpenedOrders from './AdminOpenedOrders'
+import AdminCreateProduct from './AdminCreateProduct'
 
 const Admin = () => {
 
@@ -23,6 +24,7 @@ const Admin = () => {
             <PrivateRoute exact path="/" component={AdminDashboard} />
             <PrivateRoute exact path="/affiliates" component={AdminAffiliates} />
             <PrivateRoute exact path="/products" component={AdminProducts} />
+            <PrivateRoute exact path="/create-product" component={AdminCreateProduct} />
             <PrivateRoute exact path="/analytics" component={AdminAnalytics} />
             <PrivateRoute exact path="/openedOrders" component={AdminOpenedOrders} />
             <PrivateRoute exact path="/closedOrders" component={AdminClosedOrders} />

@@ -2,6 +2,11 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 h1, h2, h3, h4, h5, h6, p, span, tr, th, td, div, ul, li, input, label, textarea {
   font-family: 'Montserrat', sans-serif;
 }
@@ -42,6 +47,14 @@ hr {
 
 .font-bold {
   font-weight: bold !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.float-right {
+  float: right;
 }
 
 .sidebar {
@@ -89,10 +102,6 @@ hr {
   border-top: 1px solid #aaaaaa;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 .bg-login {
   background-color: #3DBD8F;
   min-height: 100vh;
@@ -102,6 +111,10 @@ hr {
   text-decoration: none;
   color: white;
   float: right;
+}
+
+.bg-keto-primary {
+  background-color: rgba(61, 189, 143, 0.4);
 }
 
 .bg-keto-secondary {
@@ -165,4 +178,18 @@ table tbody tr td {
 .store-image {
   width: 100%;
   aspect-ratio: 4/3;
+}
+
+.admin-create-product .product-field {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  height: 30px;
+}
+
+.file {
+  height: 1px;
+  width: 10px;
+  margin-left: 50px;
+  margin-top: -2px;
+  border: 1px solid transparent;
 }
