@@ -23,6 +23,14 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 4.5 + Math.random() / 2
   },
+  stripeProductID: {
+    type: String,
+    required: true
+  },
+  stripePriceID: {
+    type: String,
+    required: true
+  },
 });
 
 module.exports = mongoose.model('product', ProductSchema);
