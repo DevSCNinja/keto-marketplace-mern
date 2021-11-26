@@ -49,8 +49,6 @@ router.post('/createProduct', fileUpload.fields([{ name: 'pictures' }]), async (
 })
 
 router.get('/getProducts', async (req, res) => {
-  await Product.deleteMany()
-
   const products = await Product.find()
 
   res.json({
