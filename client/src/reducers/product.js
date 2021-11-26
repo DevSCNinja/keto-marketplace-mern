@@ -1,9 +1,19 @@
 import {
   PRODUCTS_LOADED,
+  PRODUCT_LOADED
 } from '../actions/types'
 
 const initialState = {
   products: [],
+  product: {
+    name: '',
+    price: 0,
+    description: '',
+    rate: 0,
+    clicks: 0,
+    conversion: 0,
+    pictures: []
+  }
 }
 
 const productReducer = (state = initialState, action) => {
@@ -14,6 +24,12 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         products: payload
+      }
+    }
+    case PRODUCT_LOADED: {
+      return {
+        ...state,
+        product: payload
       }
     }
     default:

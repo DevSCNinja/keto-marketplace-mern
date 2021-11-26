@@ -45,6 +45,12 @@ const ClientSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
               <div>Store</div>
             </div>
           </div>
+          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'cart' ? 'selected' : '')} onClick={() => goPage('cart')}>
+            <div className='d-flex align-items-center'>
+              <div><img src={storeImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
+              <div>Cart</div>
+            </div>
+          </div>
         </div>
 
         <div className='signoutLink top-border p-2 pt-3'>

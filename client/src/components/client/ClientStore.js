@@ -1,9 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import productImage from '../../img/product.PNG'
 import ReactStars from "react-rating-stars-component"
+import { getProducts } from '../../actions/product'
+import { useHistory } from 'react-router'
 
-const ClientStore = () => {
+const ClientStore = ({ getProducts, products, baseURL }) => {
+  const history = useHistory()
+
+  React.useEffect(() => {
+    getProducts()
+  }, [getProducts])
 
   return (
     <div className='client-dashboard'>
@@ -11,13 +17,13 @@ const ClientStore = () => {
         <div className='font-36 pt-3'>Store</div>
       </div>
       <div className='row'>
-        {[1, 2, 3, 4, 5, 6].map((item, index) =>
-          <div key={index} className='col-lg-3 col-md-6 my-3'>
-            <div>
-              <img src={productImage} alt='SETIMG' className='store-image' />
-              <div>
+        {products.map((item, index) =>
+          <div key={index} onClick={() => history.push(`product/${item._id}`)} className='col-lg-3 col-md-6 my-3 cursor-pointer'>
+            <div className='bg-white keto-shadow'>
+              <img src={baseURL + item.pictures[0]} alt='SETIMG' className='store-image' />
+              <div className='p-2'>
                 <div className='font-24 font-bold'>
-                  MCT Oil Powder
+                  {item.name.slice(0, 20)} {item.name.length > 20 ? '...' : null}
                 </div>
                 <ReactStars
                   value={3.5}
@@ -26,11 +32,11 @@ const ClientStore = () => {
                   edit={false}
                   activeColor="#3DBD8F"
                 />
-                <div className='font-15'>
-                  Supports mental clarity, metabolic function and provides convenient fats.
+                <div className='font-15 height-50'>
+                  {item.description.slice(0, 50)} {item.description.length > 50 ? '...' : null}
                 </div>
                 <div className='font-18 font-bold color-keto-primary pt-1'>
-                  $39.99
+                  ${item.price}
                 </div>
               </div>
             </div>
@@ -42,7 +48,8 @@ const ClientStore = () => {
 }
 
 const mapStateToProps = state => ({
-
+  products: state.product.products,
+  baseURL: state.admin.baseURL
 })
 
-export default connect(mapStateToProps, {})(ClientStore)
+export default connect(mapStateToProps, { getProducts })(ClientStore)

@@ -16,6 +16,10 @@ hr {
   margin-bottom: 6px !important;
 }
 
+.height-50 {
+  height: 50px !important;
+}
+
 .font-12 {
   font-size: 12px !important;
 }
@@ -192,4 +196,36 @@ table tbody tr td {
   margin-left: 50px;
   margin-top: -2px;
   border: 1px solid transparent;
+}
+
+.product-description {
+  -webkit-user-modify: read-write-plaintext-only;
+  line-height: 30px;
+}
+
+.input-group-keto-small {
+  width: 122px !important;
+}
+
+.input-keto-small {
+  text-align: right;
+}
+
+.btn-keto-light {
+  background-color: lightgray;
+}
+
+.client-cart hr {
+  margin: 0px !important;
+}
+
+.no-cartlines {
+  text-align: center;
+  margin: 100px 0;
+}
+
+.narrow-input {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  height: 30px;
 }
