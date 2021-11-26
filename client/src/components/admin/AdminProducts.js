@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ReactStars from "react-rating-stars-component"
-import { getProducts } from '../../actions/product'
+import { getProducts, deleteProduct } from '../../actions/product'
 import Spinner from '../layout/Spinner'
 
-const AdminProducts = ({ getProducts, products, baseURL, isLoading }) => {
+const AdminProducts = ({ getProducts, products, baseURL, isLoading, deleteProduct }) => {
 
   React.useEffect(() => {
     getProducts()
@@ -58,8 +58,15 @@ const AdminProducts = ({ getProducts, products, baseURL, isLoading }) => {
                         <td>{item.clicks}</td>
                         <td>{item.conversion}%</td>
                         <td>$0</td>
-                        <td>${item.price}</td>
-                        <td><i className='fa fa-ellipsis-v'></i></td>
+                        <td>${item.price / 100}</td>
+                        <td>
+                          <Link to={`/edit-product/${item._id}`} className='btn bg-keto-secondary mr-1'>
+                            <i className='fa fa-edit'></i>
+                          </Link>
+                          <button className='btn bg-keto-secondary' onClick={() => window.confirm('Are you sure?') ? deleteProduct(item._id) : null}>
+                            <i className='fa fa-trash-o'></i>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -78,4 +85,4 @@ const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, { getProducts })(AdminProducts)
+export default connect(mapStateToProps, { getProducts, deleteProduct })(AdminProducts)

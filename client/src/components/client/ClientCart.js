@@ -8,14 +8,16 @@ const ClientCart = ({ cartLines, baseURL, removeProductFromCart }) => {
   const history = useHistory()
 
   const [subTotal, setSubTotal] = React.useState(0)
-  const shipping = 10.99
+  const [shipping, setShipping] = React.useState(0)
 
   React.useEffect(() => {
-    let subTotal = 0
+    let subTotal = 0, shipping = 0
     cartLines.forEach(line => {
-      subTotal += (line.product.price * line.quantity)
+      subTotal += line.product.price / 100 * line.quantity
+      shipping += line.product.shippingFee / 100 * line.quantity
     })
     setSubTotal(subTotal)
+    setShipping(shipping)
   }, [cartLines])
 
   return (
@@ -50,6 +52,7 @@ const ClientCart = ({ cartLines, baseURL, removeProductFromCart }) => {
                         <thead className='color-keto-primary'>
                           <tr>
                             <th>Price</th>
+                            <th>Shipping</th>
                             <th>Quantity</th>
                             <th>Total Sales</th>
                             <th></th>
@@ -57,9 +60,10 @@ const ClientCart = ({ cartLines, baseURL, removeProductFromCart }) => {
                         </thead>
                         <tbody>
                           <tr>
-                            <td>${item.product.price}</td>
+                            <td>${item.product.price / 100}</td>
+                            <td>${item.product.shippingFee / 100}</td>
                             <td>{item.quantity}</td>
-                            <td>${item.product.price * item.quantity}</td>
+                            <td>${item.product.price / 100 * item.quantity}</td>
                             <td>
                               <button className='btn btn-light' onClick={e => {
                                 e.stopPropagation()

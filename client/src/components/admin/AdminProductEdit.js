@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createProduct } from '../../actions/product'
+import { getProduct, updateProduct } from '../../actions/product'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminProductCreate = ({ createProduct, isLoading }) => {
+const AdminProductEdit = ({ match, getProduct, updateProduct, isLoading, product, baseURL }) => {
+  const productID = match.params.id
   const history = useHistory()
 
   const [name, setName] = React.useState('')
@@ -12,7 +13,28 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
   const [description, setDescription] = React.useState('')
   const [shippingFee, setShippingFee] = React.useState(1)
   const [pictures, setPictures] = React.useState([])
+  const [oldPictures, setOldPictures] = React.useState([])
   const inputRef = React.useRef()
+
+  React.useEffect(() => {
+    getProduct(productID)
+  }, [productID, getProduct])
+
+  React.useEffect(() => {
+    setName(product.name)
+    setPrice(product.price / 100)
+    setDescription(product.description)
+    setShippingFee(product.shippingFee / 100)
+    setOldPictures(product.pictures)
+  }, [product])
+
+  const removeOldProduct = item => {
+    setOldPictures(oldPictures.filter(element => element !== item))
+  }
+
+  const removeProduct = item => {
+    setPictures(pictures.filter(element => element !== item))
+  }
 
   const fileSelectedHandler = e => {
     let newPictures = [...e.target.files]
@@ -31,22 +53,19 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
     setPictures(picturesAdded)
   }
 
-  const removeProduct = item => {
-    setPictures(pictures.filter(element => element !== item))
-  }
-
   const onSubmit = e => {
     e.preventDefault()
     let formData = new FormData()
     formData.append('name', name)
     formData.append('price', price)
     formData.append('shippingFee', shippingFee)
+    formData.append('oldPictures', oldPictures)
     pictures.forEach(picture => {
       formData.append('pictures', picture)
     })
     formData.append('description', description)
-    if (pictures.length) {
-      createProduct(formData, history)
+    if (pictures.length || oldPictures.length) {
+      updateProduct(productID, formData, history)
     } else {
       alert("You didn't pick the images.")
     }
@@ -54,7 +73,7 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
 
   return (
     <div className='admin-create-product'>
-      <div className='font-36 pt-3'>Create A Product</div>
+      <div className='font-36 pt-3'>Edit A Product</div>
       <div className='row my-3'>
         <div className='col-md-12'>
           <div className='p-3 bg-white keto-rounded-lg mt-3 keto-shadow'>
@@ -120,18 +139,28 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
                     name='pictures'
                     onChange={fileSelectedHandler}
                     ref={inputRef}
-                    required
                   /><span>{pictures.length} files selected.</span>
                 </div>
-                {pictures.map((item, index) =>
-                  <span className='mr-1' key={index}>
-                    <img alt='SETIMAGE' src={URL.createObjectURL(item)} width='50px' height='35px' />
-                    <button className='btn btn-sm bg-keto-secondary' onClick={e => {
-                      e.preventDefault()
-                      removeProduct(item)
-                    }}><i className='fa fa-remove'></i></button>
-                  </span>
-                )}
+                <div className='pb-2'>
+                  {oldPictures.map((item, index) =>
+                    <span className='mr-1' key={index}>
+                      <img alt='SETIMAGE' src={baseURL + item} width='50px' height='35px' />
+                      <button className='btn btn-sm bg-keto-secondary' onClick={e => {
+                        e.preventDefault()
+                        removeOldProduct(item)
+                      }}><i className='fa fa-remove'></i></button>
+                    </span>
+                  )}
+                  {pictures.map((item, index) =>
+                    <span className='mr-1' key={index}>
+                      <img alt='SETIMAGE' src={URL.createObjectURL(item)} width='50px' height='35px' />
+                      <button className='btn btn-sm bg-keto-secondary' onClick={e => {
+                        e.preventDefault()
+                        removeProduct(item)
+                      }}><i className='fa fa-remove'></i></button>
+                    </span>
+                  )}
+                </div>
                 <div className='form-group'>
                   <label>Product Description</label>
                   <textarea
@@ -144,7 +173,7 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
                   />
                 </div>
                 <div className='d-flex justify-content-end'>
-                  <button className='btn bg-keto-primary'>
+                  <button className='btn bg-keto-primary' type='submit'>
                     Submit
                   </button>
                 </div>
@@ -158,7 +187,9 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.admin.pageIsLoading
+  isLoading: state.admin.pageIsLoading,
+  product: state.product.product,
+  baseURL: state.admin.baseURL
 })
 
-export default connect(mapStateToProps, { createProduct })(AdminProductCreate)
+export default connect(mapStateToProps, { getProduct, updateProduct })(AdminProductEdit)

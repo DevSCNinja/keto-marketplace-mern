@@ -45,7 +45,7 @@ const ClientProduct = ({ match, baseURL, getProduct, product, addProductToCart }
             {product.description}
           </div>
           <div className='color-keto-primary font-bold font-24 pt-3'>
-            ${product.price}
+            ${product.price / 100}
           </div>
           <div className='pt-4 font-14'>
             Quantity

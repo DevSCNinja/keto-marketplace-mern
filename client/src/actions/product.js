@@ -41,3 +41,24 @@ export const getProduct = productID => async dispatch => {
     })
   }
 }
+
+export const updateProduct = (productID, formData, history) => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.post(`/product/updateProduct/${productID}`, formData)
+
+  if (res.data.success) {
+    dispatch(getProducts())
+    dispatch(setPageIsLoading(false))
+    history.push('/products')
+  }
+}
+
+export const deleteProduct = productID => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.delete(`/product/deleteProduct/${productID}`)
+
+  if (res.data.success) {
+    dispatch(getProducts())
+    dispatch(setPageIsLoading(false))
+  }
+}
