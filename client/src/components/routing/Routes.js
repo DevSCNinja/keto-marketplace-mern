@@ -8,6 +8,8 @@ import NotFound from '../layout/NotFound'
 import PrivateRoute from '../routing/PrivateRoute'
 import ForgotPassword from '../auth/ForgotPassword'
 import ResetPassword from '../auth/ResetPassword'
+import ClientRegister from '../auth/ClientRegister'
+import AffiliateRegister from '../auth/AffiliateRegister'
 
 const Routes = props => {
   return (
@@ -15,6 +17,8 @@ const Routes = props => {
       <Alert />
       <Switch>
         <Route exact path="/register" component={Register} />
+        <Route exact path="/register/affiliate" component={AffiliateRegister} />
+        <Route exact path="/register/client" component={ClientRegister} />
         <Route exact path="/login" component={Login} />
         <Route exact path='/dashboard' component={Dashboard} />
         <PrivateRoute path="/dashboard" component={Dashboard} />

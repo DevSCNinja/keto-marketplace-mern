@@ -60,7 +60,7 @@ const ForgotPassword = ({ forgotPassword }) => {
                       <input
                         type='submit'
                         className='form-control btn'
-                        style={{ backgroundColor: '#B098E6', color: 'white' }}
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
                         value='SUBMIT'
                       />
                     </div>
@@ -68,7 +68,7 @@ const ForgotPassword = ({ forgotPassword }) => {
                       <Link
                         to='/login'
                         className='btn form-control'
-                        style={{ backgroundColor: '#B098E6', color: 'white' }}
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
                       >
                         Login
                       </Link>

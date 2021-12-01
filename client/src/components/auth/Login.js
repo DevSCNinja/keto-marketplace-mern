@@ -77,15 +77,15 @@ const Login = ({ login, isAuthenticated }) => {
                       <input
                         type='submit'
                         className='form-control btn'
-                        style={{ backgroundColor: '#B098E6', color: 'white' }}
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
                         value='Login'
                       />
                     </div>
                     <div className='form-group'>
                       <Link
-                        to='/login'
+                        to='/register'
                         className='btn form-control'
-                        style={{ backgroundColor: '#B098E6', color: 'white' }}
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
                       >
                         Register
                       </Link>
