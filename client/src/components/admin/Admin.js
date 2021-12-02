@@ -13,6 +13,10 @@ import AdminClosedOrders from './AdminClosedOrders'
 import AdminOpenedOrders from './AdminOpenedOrders'
 import AdminProductCreate from './AdminProductCreate'
 import AdminProductEdit from './AdminProductEdit'
+import AdminAcademy from './AdminAcademy'
+import AdminAcademyCreate from './AdminAcademyCreate'
+import AdminAcademyEdit from './AdminAcademyEdit'
+import AdminAcademyView from './AdminAcademyView'
 
 const Admin = () => {
 
@@ -31,6 +35,10 @@ const Admin = () => {
             <PrivateRoute exact path="/openedOrders" component={AdminOpenedOrders} />
             <PrivateRoute exact path="/closedOrders" component={AdminClosedOrders} />
             <PrivateRoute exact path="/order/:id" component={AdminOrderDetail} />
+            <PrivateRoute exact path="/academy" component={AdminAcademy} />
+            <PrivateRoute exact path="/academy/:id" component={AdminAcademyView} />
+            <PrivateRoute exact path="/academy-create" component={AdminAcademyCreate} />
+            <PrivateRoute exact path="/academy-edit/:id" component={AdminAcademyEdit} />
             <PrivateRoute exact path="/settings" component={AdminSettings} />
           </Router>
         </div>

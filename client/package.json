@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@u-wave/react-vimeo": "^0.9.5",
     "apexcharts": "^3.29.0",
     "react": "^17.0.1",
     "react-apexcharts": "^1.3.9",

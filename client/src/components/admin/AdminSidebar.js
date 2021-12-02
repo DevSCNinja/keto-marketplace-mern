@@ -10,6 +10,7 @@ import affiliatesImage from '../../img/icons/affiliates.PNG'
 import settingsImage from '../../img/icons/settings.PNG'
 import storeImage from '../../img/icons/store.PNG'
 import logoutImage from '../../img/icons/logout.PNG'
+import academyImage from '../../img/icons/academy.PNG'
 
 const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
   let history = useHistory()
@@ -70,6 +71,12 @@ const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
             <div className='d-flex align-items-center'>
               <div><img src={storeImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
               <div>Closed Orders</div>
+            </div>
+          </div>
+          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'academy' ? 'selected' : '')} onClick={() => goPage('academy')}>
+            <div className='d-flex align-items-center'>
+              <div><img src={academyImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
+              <div>Academy</div>
             </div>
           </div>
         </div>

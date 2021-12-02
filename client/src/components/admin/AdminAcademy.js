@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getCourses } from '../../actions/course'
+import { Link } from 'react-router-dom'
+import { getCourses, deleteCourse } from '../../actions/course'
 import { useHistory } from 'react-router'
 
-const ClientDashboard = ({ getCourses, courses }) => {
+const AdminAcademy = ({ getCourses, deleteCourse, courses }) => {
   const history = useHistory()
 
   React.useEffect(() => {
@@ -14,6 +15,7 @@ const ClientDashboard = ({ getCourses, courses }) => {
     <div className='client-dashboard'>
       <div className='d-flex align-items-center pt-3'>
         <div className='font-36 mr-3'>Academy</div>
+        <Link to='/academy-create' className='font-12 btn bg-keto-primary'>Create Course</Link>
       </div>
       <div className='row my-3'>
         <div className='col-lg-12'>
@@ -33,7 +35,15 @@ const ClientDashboard = ({ getCourses, courses }) => {
                 </div>
               </div>
               <div className='col-md-2 pt-2 text-right font-12'>
-                
+                <button onClick={e => {
+                  e.stopPropagation()
+                  history.push(`/academy-edit/${item._id}`)
+                }} className='btn btn-sm btn-light'><i className='fa fa-gear cursor-pointer font-21'></i></button>
+                <button onClick={e => {
+                  e.stopPropagation()
+                  let confirmAnswer = window.confirm('Are you sure?')
+                  if (confirmAnswer) deleteCourse(history, item._id)
+                }} className='btn btn-sm btn-light ml-2'><i className='fa fa-trash-o cursor-pointer font-21'></i></button>
               </div>
               <div className='col-md-12'>
                 <hr />
@@ -50,4 +60,4 @@ const mapStateToProps = state => ({
   courses: state.course.courses
 })
 
-export default connect(mapStateToProps, { getCourses })(ClientDashboard)
+export default connect(mapStateToProps, { getCourses, deleteCourse })(AdminAcademy)
