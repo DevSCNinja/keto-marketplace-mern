@@ -7,8 +7,27 @@ const AdminClosedOrders = () => {
 
   return (
     <div className='admin-orders'>
-      <div>
-        <div className='font-36 pt-3'>Closed Orders</div>
+      <div className='row'>
+        <div className='col-lg-6'>
+          <div className='font-36 pt-3'>Closed Orders</div>
+        </div>
+        <div className='col-lg-6'>
+          <div className='text-right pt-4'>
+            <select
+              type='text'
+              className='search-filter'
+            >
+              <option>All</option>
+              <option>Active</option>
+              <option>Pending</option>
+            </select>
+            <input
+              type='text'
+              className='search-filter'
+              placeholder='Search'
+            />
+          </div>
+        </div>
       </div>
       <div className='row my-3'>
         <div className='col-md-12'>

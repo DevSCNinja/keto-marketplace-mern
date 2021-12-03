@@ -2,7 +2,8 @@ import {
   CURRENT_PAGE_SET,
   SET_PAGE_LOADING,
   AFFILIATES_LOADED,
-  ADMIN_LOADED
+  ADMIN_LOADED,
+  CUSTOMERS_LOADED
 } from '../actions/types'
 
 const initialState = {
@@ -10,7 +11,8 @@ const initialState = {
   baseURL: window.location.port ? 'http://' + window.location.hostname + ':5000/files/' : 'https://' + window.location.hostname + '/files/',
   pageIsLoading: false,
   affiliates: [],
-  admin: {}
+  admin: {},
+  customers: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -39,6 +41,12 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         admin: payload
+      }
+    }
+    case CUSTOMERS_LOADED: {
+      return {
+        ...state,
+        customers: payload
       }
     }
     default:

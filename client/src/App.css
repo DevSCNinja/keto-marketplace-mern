@@ -234,3 +234,15 @@ table tbody tr td {
   background: rgba(255, 255, 255, 0.7);
   width: 250px;
 }
+
+.material-icons {
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.search-filter {
+  width: 120px;
+  margin-left: 10px;
+  height: 25px;
+}

@@ -3,7 +3,8 @@ import {
   CURRENT_PAGE_SET,
   SET_PAGE_LOADING,
   AFFILIATES_LOADED,
-  ADMIN_LOADED
+  ADMIN_LOADED,
+  CUSTOMERS_LOADED
 } from './types'
 
 export const setCurrentPage = currentPage => async dispatch => {
@@ -38,6 +39,17 @@ export const getAdmin = () => async dispatch => {
     dispatch({
       type: ADMIN_LOADED,
       payload: res.data.admin
+    })
+  }
+}
+
+export const getCustomers = (affiliateID = 'admin') => async dispatch => {
+  const res = await api.get(`/admin/getCustomers/${affiliateID}`)
+
+  if (res.data.success) {
+    dispatch({
+      type: CUSTOMERS_LOADED,
+      payload: res.data.customers
     })
   }
 }

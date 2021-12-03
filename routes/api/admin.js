@@ -22,4 +22,19 @@ router.get('/getAdmin', async (req, res) => {
   })
 })
 
+router.get('/getCustomers/:affiliateID', async (req, res) => {
+  const affiliateID = req.params.affiliateID
+  let customers = []
+  if (affiliateID === 'admin') {
+    customers = await User.find({type: 'client'})
+  } else {
+    customers = await User.find({type: 'client'})
+  }
+
+  res.json({
+    success: true,
+    customers
+  })
+})
+
 module.exports = router

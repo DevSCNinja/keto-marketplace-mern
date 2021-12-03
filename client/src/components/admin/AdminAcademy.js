@@ -13,9 +13,31 @@ const AdminAcademy = ({ getCourses, deleteCourse, courses }) => {
 
   return (
     <div className='client-dashboard'>
-      <div className='d-flex align-items-center pt-3'>
-        <div className='font-36 mr-3'>Academy</div>
-        <Link to='/academy-create' className='font-12 btn bg-keto-primary'>Create Course</Link>
+
+      <div className='row'>
+        <div className='col-lg-6'>
+          <div className='d-flex align-items-center pt-3'>
+            <div className='font-36 mr-3'>Academy</div>
+            <Link to='/academy-create' className='font-12 btn bg-keto-primary'>Create Course</Link>
+          </div>
+        </div>
+        <div className='col-lg-6'>
+          <div className='text-right pt-4'>
+            <select
+              type='text'
+              className='search-filter'
+            >
+              <option>All</option>
+              <option>Active</option>
+              <option>Pending</option>
+            </select>
+            <input
+              type='text'
+              className='search-filter'
+              placeholder='Search'
+            />
+          </div>
+        </div>
       </div>
       <div className='row my-3'>
         <div className='col-lg-12'>
