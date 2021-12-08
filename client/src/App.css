@@ -246,3 +246,11 @@ table tbody tr td {
   margin-left: 10px;
   height: 25px;
 }
+
+.bg-affiliate {
+  min-height: 100vh;
+}
+
+.min-width-250 {
+  min-width: 250px;
+}

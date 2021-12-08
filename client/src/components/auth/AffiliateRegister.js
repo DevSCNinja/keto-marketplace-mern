@@ -1,9 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
-import { register } from '../../actions/auth'
+import { Link } from 'react-router-dom'
+import { affiliateRegister, checkAffiliateEmail } from '../../actions/auth'
+import { useHistory } from 'react-router'
 
-const AffiliateRegister = ({ register, isAuthenticated }) => {
+const AffiliateRegister = ({ affiliateRegister, affiliateIsRegistered, connectURL, checkAffiliateEmail }) => {
+  const history = useHistory()
+  const [buttonName, setButtonName] = React.useState("SUBMIT")
+  const [affiliateID, setAffiliateID] = React.useState(null)
   const [formData, setFormData] = React.useState({
     type: 'affiliate',
     brand: '',
@@ -20,20 +24,30 @@ const AffiliateRegister = ({ register, isAuthenticated }) => {
 
   const { brand, name, email, phoneNumber, password, password2, bringTo, instagram, facebook, twitter } = formData
 
+  React.useEffect(() => {
+    if (affiliateIsRegistered) {
+      setButtonName("SUBMIT")
+      window.location.href = connectURL
+    }
+  }, [affiliateIsRegistered, connectURL])
+
+  React.useEffect(() => {
+    setAffiliateID(localStorage.getItem('affiliateID'))
+  }, [])
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (password !== password2) {
-      alert('Passwords do not match', 'danger')
-    } else {
-      register(formData)
-    }
-  }
+    const isExist = await checkAffiliateEmail({
+      email: formData.email
+    })
 
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />
+    if (!isExist && !affiliateIsRegistered && name && email && password && brand && bringTo) {
+      setButtonName("Processing...")
+      await affiliateRegister({ affiliateID, ...formData }, history)
+    }
   }
 
   return (
@@ -122,7 +136,7 @@ const AffiliateRegister = ({ register, isAuthenticated }) => {
           />
         </div>
         <div className="form-group">
-          <label>Instagram Username</label>
+          <label>Instagram </label>
           <input
             type="text"
             className='form-control'
@@ -133,7 +147,7 @@ const AffiliateRegister = ({ register, isAuthenticated }) => {
           />
         </div>
         <div className="form-group">
-          <label>Facebook Username</label>
+          <label>Facebook </label>
           <input
             type="text"
             className='form-control'
@@ -144,7 +158,7 @@ const AffiliateRegister = ({ register, isAuthenticated }) => {
           />
         </div>
         <div className="form-group">
-          <label>Twitter Username</label>
+          <label>Twitter </label>
           <input
             type="text"
             className='form-control'
@@ -155,7 +169,7 @@ const AffiliateRegister = ({ register, isAuthenticated }) => {
           />
         </div>
         <div className='text-right mb-5'>
-          <input type="submit" className="btn bg-keto-primary" value="Register" />
+          <input type="submit" className="btn bg-keto-primary" value={buttonName} />
           <Link className='btn bg-keto-secondary ml-2' to="/login">Sign In</Link>
         </div>
       </form>
@@ -164,7 +178,8 @@ const AffiliateRegister = ({ register, isAuthenticated }) => {
 }
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  affiliateIsRegistered: state.auth.affiliateIsRegistered,
+  connectURL: state.auth.connectURL
 })
 
-export default connect(mapStateToProps, { register })(AffiliateRegister)
+export default connect(mapStateToProps, { affiliateRegister, checkAffiliateEmail })(AffiliateRegister)

@@ -7,7 +7,10 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  AFFILIATE_REGISTER_SUCCESS,
+  PENDING_AFFILIATE_LOADED,
+  UPDATE_AFFILIATE_CONNECTED_ACCOUNT,
 } from './types'
 
 // Load User
@@ -45,6 +48,85 @@ export const register = formData => async dispatch => {
 
     dispatch({
       type: REGISTER_FAIL
+    })
+  }
+}
+
+// Customer Register
+export const clientRegister = formData => async dispatch => {
+  try {
+    const res = await api.post('/users/clientRegister', formData)
+    console.log(res.data)
+
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: res.data
+    })
+    dispatch(loadUser())
+  } catch (err) {
+    const errors = err.response.data.errors
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+    }
+
+    dispatch({
+      type: REGISTER_FAIL
+    })
+  }
+}
+
+export const affiliateRegister = (formData, history) => async dispatch => {
+  try {
+    const res = await api.post('/users/affiliateRegister', formData)
+    const affiliateID = res.data.pendingAffiliate._id
+    localStorage.setItem('affiliateID', affiliateID)
+
+    dispatch({
+      type: AFFILIATE_REGISTER_SUCCESS,
+      payload: res.data
+    })
+  } catch (err) {
+    const errors = err.response.data.errors
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+    }
+
+    dispatch({
+      type: REGISTER_FAIL
+    })
+    history.push('/dashboard')
+  }
+}
+
+export const checkAffiliateEmail = (formData) => async dispatch => {
+  const res = await api.post('/users/checkAffiliateEmail', formData)
+  if (res.data.success) {
+    if (res.data.isExist) {
+      dispatch(setAlert(res.data.notification, 'danger'))
+    }
+    return res.data.isExist
+  }
+}
+
+export const getPendingAffiliateByUserId = userID => async dispatch => {
+  const res = await api.get(`/users/getPendingAffiliateByUserId/${userID}`)
+
+  if (res.data.success) {
+    dispatch({
+      type: PENDING_AFFILIATE_LOADED,
+      payload: res.data
+    })
+  }
+}
+
+export const updateAffiliateConnectedAccount = userID => async dispatch => {
+  const res = await api.get(`/users/updateAffiliateConnectedAccount/${userID}`)
+  if (res.data.success) {
+    dispatch({
+      type: UPDATE_AFFILIATE_CONNECTED_ACCOUNT,
+      payload: res.data
     })
   }
 }

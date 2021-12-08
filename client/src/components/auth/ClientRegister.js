@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
-import { register } from '../../actions/auth'
+import { clientRegister } from '../../actions/auth'
 import { getAffiliates, getAdmin } from '../../actions/admin'
 
-const ClientRegister = ({ register, isAuthenticated, getAffiliates, getAdmin, affiliates, admin }) => {
+const ClientRegister = ({ clientRegister, isAuthenticated, getAffiliates, getAdmin, affiliates, admin }) => {
+
   React.useEffect(() => {
     getAffiliates()
     getAdmin()
@@ -14,12 +15,12 @@ const ClientRegister = ({ register, isAuthenticated, getAffiliates, getAdmin, af
     type: 'client',
     name: '',
     email: '',
-    owner: '',
+    affiliate: '',
     password: '',
     password2: ''
   })
 
-  const { name, email, owner, password, password2 } = formData
+  const { name, email, affiliate, password, password2 } = formData
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -29,7 +30,7 @@ const ClientRegister = ({ register, isAuthenticated, getAffiliates, getAdmin, af
     if (password !== password2) {
       alert('Passwords do not match', 'danger')
     } else {
-      register({ name, email, password })
+      clientRegister(formData)
     }
   }
 
@@ -69,7 +70,7 @@ const ClientRegister = ({ register, isAuthenticated, getAffiliates, getAdmin, af
         </div>
         <div className='form-group'>
           <label>Affiliate</label>
-          <select className='form-control' name='owner' value={owner} onChange={onChange} required>
+          <select className='form-control' name='affiliate' value={affiliate} onChange={onChange} required>
             <option value=''>-- Please Select --</option>
             {affiliates.map((item, index) => 
               <option key={index} value={item._id}>{item.name}</option>
@@ -114,4 +115,4 @@ const mapStateToProps = (state) => ({
   admin: state.admin.admin
 })
 
-export default connect(mapStateToProps, { register, getAffiliates, getAdmin })(ClientRegister)
+export default connect(mapStateToProps, { clientRegister, getAffiliates, getAdmin })(ClientRegister)

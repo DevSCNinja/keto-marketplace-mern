@@ -6,14 +6,21 @@ import {
   LOGIN_SUCCESS,
   //LOGIN_FAIL,
   LOGOUT,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  AFFILIATE_REGISTER_SUCCESS,
+  PENDING_AFFILIATE_LOADED,
+  UPDATE_AFFILIATE_CONNECTED_ACCOUNT,
 } from '../actions/types'
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
-  user: null
+  user: null,
+  affiliateIsRegistered: false,
+  connectURL: "",
+  pendingAffiliate: {},
+  affiliateConnectedAccountUpdateLink: '',
 }
 
 function authReducer(state = initialState, action) {
@@ -51,6 +58,23 @@ function authReducer(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
+      }
+    case AFFILIATE_REGISTER_SUCCESS:
+      return {
+        ...state,
+        affiliateIsRegistered: payload.success,
+        connectURL: payload.connectURL,
+      }
+    case PENDING_AFFILIATE_LOADED:
+      return {
+        ...state,
+        pendingAffiliateIsLoaded: payload.success,
+        pendingAffiliate: payload.affiliate
+      }
+    case UPDATE_AFFILIATE_CONNECTED_ACCOUNT:
+      return {
+        ...state,
+        affiliateConnectedAccountUpdateLink: payload.connectURL
       }
     default:
       return state

@@ -27,7 +27,46 @@ const UserSchema = new mongoose.Schema({
   },
   passwordForUpdate: {
     type: String
-  }
+  },
+  // CLIENT
+  affiliate: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
+  // AFFILIATE
+  brand: {
+    type: String
+  },
+  phoneNumber: {
+    type: String
+  },
+  bringTo: {
+    type: String
+  },
+  instagram: {
+    type: String
+  },
+  facebook: {
+    type: String
+  },
+  twitter: {
+    type: String
+  },
+  status: {
+    type: String
+  },
+  inActiveReason: {
+    type: String
+  },
+  connectedAccountStatus: {
+    type: String
+  },
+  mailSent: {
+    type: Boolean
+  },
+  stripeConnectedAccount: {
+    type: String
+  },
 });
 
 module.exports = mongoose.model('user', UserSchema);
