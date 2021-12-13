@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Chart from 'react-apexcharts'
+import Vimeo from '@u-wave/react-vimeo'
 
 const AffiliateDashboard = ({ user }) => {
   const options = {
@@ -24,6 +25,10 @@ const AffiliateDashboard = ({ user }) => {
       data: [5, 4, 3, 4, 5, 6]
     }
   ]
+
+  React.useEffect(() => {
+    document.getElementById("button").click()
+  })
 
   return (
     <div className='admin-dashboard'>
@@ -109,6 +114,23 @@ const AffiliateDashboard = ({ user }) => {
               height='400px'
               width='100%'
             />
+          </div>
+        </div>
+      </div>
+      <button type="button" className="btn" id='button' data-toggle="modal" data-target="#myModal">
+      </button>
+      <div className="modal" id='myModal'>
+        <div className="modal-dialog modal-xl">
+          <div className="modal-content">
+            <div className="modal-body text-center">
+              <Vimeo
+                video={354682480}
+                responsive={true}
+              />
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn bg-keto-primary" data-dismiss="modal">skip</button>
+            </div>
           </div>
         </div>
       </div>

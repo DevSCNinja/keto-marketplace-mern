@@ -67,6 +67,10 @@ const UserSchema = new mongoose.Schema({
   stripeConnectedAccount: {
     type: String
   },
+  videoSeen: {
+    type: Boolean,
+    default: false
+  },
 });
 
 module.exports = mongoose.model('user', UserSchema);
