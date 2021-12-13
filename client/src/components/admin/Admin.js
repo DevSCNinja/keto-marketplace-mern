@@ -21,6 +21,9 @@ import AdminInfulfillmentOrders from './AdminInfulfillmentOrders'
 import AdminCategories from './AdminCategories'
 import AdminCategoryCreate from './AdminCategoryCreate'
 import AdminCategoryEdit from './AdminCategoryEdit'
+import AdminVAs from './AdminVAs'
+import AdminVACreate from './AdminVA-Create'
+import AdminVAEdit from './AdminVA-Edit'
 
 const Admin = () => {
 
@@ -47,6 +50,9 @@ const Admin = () => {
             <PrivateRoute exact path="/academy/:id" component={AdminAcademyView} />
             <PrivateRoute exact path="/academy-create" component={AdminAcademyCreate} />
             <PrivateRoute exact path="/academy-edit/:id" component={AdminAcademyEdit} />
+            <PrivateRoute exact path="/vendors" component={AdminVAs} />
+            <PrivateRoute exact path="/create-vendor" component={AdminVACreate} />
+            <PrivateRoute exact path="/edit-vendor/:id" component={AdminVAEdit} />
             <PrivateRoute exact path="/settings" component={AdminSettings} />
           </Router>
         </div>

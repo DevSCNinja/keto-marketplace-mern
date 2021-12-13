@@ -3,7 +3,9 @@ import {
   SET_PAGE_LOADING,
   AFFILIATES_LOADED,
   ADMIN_LOADED,
-  CUSTOMERS_LOADED
+  CUSTOMERS_LOADED,
+  VENDORS_LOADED,
+  VENDOR_LOADED
 } from '../actions/types'
 
 const initialState = {
@@ -12,7 +14,9 @@ const initialState = {
   pageIsLoading: false,
   affiliates: [],
   admin: {},
-  customers: []
+  customers: [],
+  vendors: [],
+  vendor: {}
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -47,6 +51,18 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         customers: payload
+      }
+    }
+    case VENDORS_LOADED: {
+      return {
+        ...state,
+        vendors: payload
+      }
+    }
+    case VENDOR_LOADED: {
+      return {
+        ...state,
+        vendor: payload
       }
     }
     default:

@@ -4,7 +4,9 @@ import {
   SET_PAGE_LOADING,
   AFFILIATES_LOADED,
   ADMIN_LOADED,
-  CUSTOMERS_LOADED
+  CUSTOMERS_LOADED,
+  VENDORS_LOADED,
+  VENDOR_LOADED
 } from './types'
 
 export const setCurrentPage = currentPage => async dispatch => {
@@ -51,5 +53,58 @@ export const getCustomers = (affiliateID = 'admin') => async dispatch => {
       type: CUSTOMERS_LOADED,
       payload: res.data.customers
     })
+  }
+}
+
+export const createVendor = (formData, history) => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.post('/admin/createVendor', formData)
+
+  if (res.data.success) {
+    dispatch(getVendors())
+    history.push('/vendors')
+  }
+}
+
+export const getVendors = () => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.get('/admin/getVendors')
+
+  if (res.data.success) {
+    dispatch({
+      type: VENDORS_LOADED,
+      payload: res.data.vendors
+    })
+    dispatch(setPageIsLoading(false))
+  }
+}
+
+export const getVendor = vendorID => async dispatch => {
+  const res = await api.get(`/admin/getVendor/${vendorID}`)
+
+  if (res.data.success) {
+    dispatch({
+      type: VENDOR_LOADED,
+      payload: res.data.vendor
+    })
+  }
+}
+
+export const updateVendor = (vendorID, formData, history) => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.post(`/admin/updateVendor/${vendorID}`, formData)
+
+  if (res.data.success) {
+    dispatch(getVendors())
+    history.push('/vendors')
+  }
+}
+
+export const deleteVendor = vendorID => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.delete(`/admin/deleteVendor/${vendorID}`)
+
+  if (res.data.success) {
+    dispatch(getVendors())
   }
 }
