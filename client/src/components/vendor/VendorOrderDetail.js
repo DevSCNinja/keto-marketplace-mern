@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const ShipperOrderDetail = () => {
+const VendorOrderDetail = () => {
 
   return (
     <div className='admin-orders'>
@@ -100,4 +100,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {})(ShipperOrderDetail)
+export default connect(mapStateToProps, {})(VendorOrderDetail)

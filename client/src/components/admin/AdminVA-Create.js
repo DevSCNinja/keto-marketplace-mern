@@ -29,7 +29,8 @@ const AdminVACreate = ({ createVendor, isLoading }) => {
           <div className='p-3 bg-white keto-rounded-lg mt-3 keto-shadow'>
             {isLoading ?
               <Spinner />
-              : <form className='form' onSubmit={onSubmit}>
+              :
+              <form className='form' onSubmit={onSubmit}>
                 <div className='form-group'>
                   <label>First and Last Name</label>
                   <input

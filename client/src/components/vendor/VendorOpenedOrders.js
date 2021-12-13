@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
 
-const ShipperOpenedOrders = () => {
+const VendorOpenedOrders = () => {
   const history = useHistory()
 
   return (
@@ -76,4 +76,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {})(ShipperOpenedOrders)
+export default connect(mapStateToProps, {})(VendorOpenedOrders)

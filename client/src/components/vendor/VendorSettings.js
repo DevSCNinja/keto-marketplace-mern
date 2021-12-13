@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const ShipperSettings = () => {
+const VendorSettings = () => {
 
   return (
     <div>
-      Shipper Settings
+      Vendor Settings
     </div>
   )
 }
@@ -14,4 +14,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {})(ShipperSettings)
+export default connect(mapStateToProps, {})(VendorSettings)

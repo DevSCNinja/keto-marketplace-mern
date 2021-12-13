@@ -7,7 +7,7 @@ import settingsImage from '../../img/icons/settings.PNG'
 import storeImage from '../../img/icons/store.PNG'
 import logoutImage from '../../img/icons/logout.PNG'
 
-const ShipperSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
+const VendorSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
   let history = useHistory()
 
   const goPage = async location => {
@@ -80,4 +80,4 @@ const mapStateToProps = state => ({
   currentPage: state.admin.currentPage
 })
 
-export default connect(mapStateToProps, { logout, setCurrentPage })(ShipperSidebar)
+export default connect(mapStateToProps, { logout, setCurrentPage })(VendorSidebar)

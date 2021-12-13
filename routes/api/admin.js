@@ -40,7 +40,7 @@ router.get('/getCustomers/:affiliateID', async (req, res) => {
 
 router.post('/createVendor', async (req, res) => {
   let newVendor = new User({ ...req.body })
-  newVendor.type = 'shipper'
+  newVendor.type = 'vendor'
   newVendor.passwordForUpdate = req.body.password,
     newVendor.password = bcrypt.hashSync(req.body.password, 10),
     await newVendor.save()
@@ -51,7 +51,7 @@ router.post('/createVendor', async (req, res) => {
 })
 
 router.get('/getVendors', async (req, res) => {
-  const vendors = await User.find({ type: 'shipper' })
+  const vendors = await User.find({ type: 'vendor' })
 
   res.json({
     success: true,
