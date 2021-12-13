@@ -20,10 +20,13 @@ const AdminAcademyView = ({ match, getCourseByID, course }) => {
           <div className='p-3 bg-white keto-rounded-lg mt-3 keto-shadow'>
             <p>{course.description}</p>
             <div className="text-center">
-              <Vimeo
-                video={course.video}
-                responsive={true}
-              />
+              {course.video === null ? null
+                :
+                <Vimeo
+                  video={course.video}
+                  responsive={true}
+                />
+              }
             </div>
           </div>
         </div>
