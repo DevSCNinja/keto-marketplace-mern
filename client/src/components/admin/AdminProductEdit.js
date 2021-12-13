@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getProduct, updateProduct } from '../../actions/product'
+import { getProduct, getCategories, updateProduct } from '../../actions/product'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminProductEdit = ({ match, getProduct, updateProduct, isLoading, product, baseURL }) => {
+const AdminProductEdit = ({ match, getProduct, getCategories, categories, updateProduct, isLoading, product, baseURL }) => {
   const productID = match.params.id
   const history = useHistory()
 
   const [name, setName] = React.useState('')
+  const [category, setCategory] = React.useState('')
   const [price, setPrice] = React.useState(1)
   const [description, setDescription] = React.useState('')
   const [shippingFee, setShippingFee] = React.useState(1)
@@ -22,6 +23,7 @@ const AdminProductEdit = ({ match, getProduct, updateProduct, isLoading, product
 
   React.useEffect(() => {
     setName(product.name)
+    setCategory(product.category)
     setPrice(product.price / 100)
     setDescription(product.description)
     setShippingFee(product.shippingFee / 100)
@@ -57,6 +59,7 @@ const AdminProductEdit = ({ match, getProduct, updateProduct, isLoading, product
     e.preventDefault()
     let formData = new FormData()
     formData.append('name', name)
+    formData.append('category', category)
     formData.append('price', price)
     formData.append('shippingFee', shippingFee)
     formData.append('oldPictures', oldPictures)
@@ -90,6 +93,21 @@ const AdminProductEdit = ({ match, getProduct, updateProduct, isLoading, product
                     onChange={e => setName(e.target.value)}
                     required
                   />
+                </div>
+                <div className='form-group'>
+                  <label>Product Category</label>
+                  <select
+                    name='category'
+                    className='form-control product-field'
+                    value={category}
+                    onChange={e => setCategory(e.target.value)}
+                    required
+                  >
+                    <option value=''>SELECT</option>
+                    {categories.map((item, index) =>
+                      <option key={index} value={item._id}>{item.name}</option>
+                    )}
+                  </select>
                 </div>
                 <div className='form-group'>
                   <label>Product Price</label>
@@ -189,7 +207,8 @@ const AdminProductEdit = ({ match, getProduct, updateProduct, isLoading, product
 const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading,
   product: state.product.product,
+  categories: state.product.categories,
   baseURL: state.admin.baseURL
 })
 
-export default connect(mapStateToProps, { getProduct, updateProduct })(AdminProductEdit)
+export default connect(mapStateToProps, { getProduct, getCategories, updateProduct })(AdminProductEdit)
