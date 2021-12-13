@@ -8,7 +8,7 @@ const initialState = {
   course: {
     title: '',
     description: '',
-    video: ''
+    video: '111'
   }
 }
 
