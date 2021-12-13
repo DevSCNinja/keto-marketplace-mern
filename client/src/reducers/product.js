@@ -1,4 +1,6 @@
 import {
+  CATEGORIES_LOADED,
+  CATEGORY_LOADED,
   PRODUCTS_LOADED,
   PRODUCT_LOADED
 } from '../actions/types'
@@ -13,6 +15,11 @@ const initialState = {
     clicks: 0,
     conversion: 0,
     pictures: []
+  },
+  categories: [],
+  category: {
+    name: '',
+    description: ''
   }
 }
 
@@ -30,6 +37,18 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         product: payload
+      }
+    }
+    case CATEGORIES_LOADED: {
+      return {
+        ...state,
+        categories: payload
+      }
+    }
+    case CATEGORY_LOADED: {
+      return {
+        ...state,
+        category: payload
       }
     }
     default:

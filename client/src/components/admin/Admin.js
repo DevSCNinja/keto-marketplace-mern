@@ -17,6 +17,10 @@ import AdminAcademy from './AdminAcademy'
 import AdminAcademyCreate from './AdminAcademyCreate'
 import AdminAcademyEdit from './AdminAcademyEdit'
 import AdminAcademyView from './AdminAcademyView'
+import AdminInfulfillmentOrders from './AdminInfulfillmentOrders'
+import AdminCategories from './AdminCategories'
+import AdminCategoryCreate from './AdminCategoryCreate'
+import AdminCategoryEdit from './AdminCategoryEdit'
 
 const Admin = () => {
 
@@ -28,11 +32,15 @@ const Admin = () => {
           <Router basename="/dashboard">
             <PrivateRoute exact path="/" component={AdminDashboard} />
             <PrivateRoute exact path="/affiliates" component={AdminAffiliates} />
+            <PrivateRoute exact path="/categories" component={AdminCategories} />
+            <PrivateRoute exact path="/create-category" component={AdminCategoryCreate} />
+            <PrivateRoute exact path="/edit-category/:id" component={AdminCategoryEdit} />
             <PrivateRoute exact path="/products" component={AdminProducts} />
             <PrivateRoute exact path="/create-product" component={AdminProductCreate} />
             <PrivateRoute exact path="/edit-product/:id" component={AdminProductEdit} />
             <PrivateRoute exact path="/analytics" component={AdminAnalytics} />
             <PrivateRoute exact path="/openedOrders" component={AdminOpenedOrders} />
+            <PrivateRoute exact path="/infulfillmentOrders" component={AdminInfulfillmentOrders} />
             <PrivateRoute exact path="/closedOrders" component={AdminClosedOrders} />
             <PrivateRoute exact path="/order/:id" component={AdminOrderDetail} />
             <PrivateRoute exact path="/academy" component={AdminAcademy} />

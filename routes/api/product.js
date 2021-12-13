@@ -4,6 +4,7 @@ const config = require('config')
 
 // MODEL
 const Product = require('../../models/Product')
+const Category = require('../../models/Category')
 
 // FILE UPLOAD
 const fileUpload = require('../../utils/fileUpload')
@@ -34,6 +35,7 @@ router.post('/createProduct', fileUpload.fields([{ name: 'pictures' }]), async (
 
   let newProduct = new Product({
     name: req.body.name,
+    category: req.body.category,
     price: req.body.price * 100,
     shippingFee: req.body.shippingFee * 100,
     description: req.body.description,
@@ -103,6 +105,7 @@ router.post('/updateProduct/:id', fileUpload.fields([{ name: 'pictures' }]), asy
 
   await Product.findByIdAndUpdate(productID, {
     name: req.body.name,
+    category: req.body.category,
     price: req.body.price * 100,
     pictures: pictures,
     description: req.body.description,
@@ -120,6 +123,61 @@ router.delete('/deleteProduct/:id', async (req, res) => {
 
   res.json({
     success: true
+  })
+})
+
+router.post('/createCategory', async (req, res) => {
+  const newCategory = new Category({...req.body})
+  await newCategory.save()
+
+  res.json({
+    success: true
+  })
+})
+
+router.get('/getCategories', async (req, res) => {
+  const categories = await Category.find()
+
+  res.json({
+    success: true,
+    categories
+  })
+})
+
+router.get('/getCategory/:id', async (req, res) => {
+  const category = await Category.findById(req.params.id)
+
+  res.json({
+    success: true,
+    category
+  })
+})
+
+router.post('/updateCategory/:id', async (req, res) => {
+  await Category.findByIdAndUpdate(req.params.id, {
+    name: req.body.name,
+    description: req.body.description
+  })
+
+  res.json({
+    success: true
+  })
+})
+
+router.delete('/deleteCategory/:id', async (req, res) => {
+  await Category.findByIdAndDelete(req.params.id)
+
+  res.json({
+    success: true
+  })
+})
+
+router.get('/getCategoryProducts/:id', async (req, res) => {
+  const products = await Product.find({category: req.params.id})
+
+  res.json({
+    success: true,
+    products
   })
 })
 

@@ -2,14 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
 
-const AdminClosedOrders = () => {
+const AdminInfulfillmentOrders = () => {
   const history = useHistory()
 
   return (
     <div className='admin-orders'>
       <div className='row'>
         <div className='col-lg-6'>
-          <div className='font-36 pt-3'>Closed Orders</div>
+          <div className='font-36 pt-3'>In Fulfillment</div>
         </div>
         <div className='col-lg-6'>
           <div className='text-right pt-4'>
@@ -40,16 +40,27 @@ const AdminClosedOrders = () => {
                   <th>Items Ordered</th>
                   <th>Ship To</th>
                   <th>Total</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item, index) =>
                   <tr key={index} onClick={() => history.push('/order/123')} className='cursor-pointer'>
                     <td>846232</td>
                     <td>Anthony Hamilton</td>
                     <td>Keto Elevate™ — C8 MCT Oil Powder</td>
                     <td>Anthony Hamilton</td>
                     <td>$1,541.52</td>
+                    <td>
+                      {index % 3 === 0
+                        ? <span className='badge badge-info badge-keto-primary'>Good</span>
+                        : index % 3 === 1
+                          ?
+                          <span className='badge badge-info badge-keto-warning'>Pending</span>
+                          :
+                          <span className='badge badge-info badge-keto-danger'>Overdue</span>
+                      }
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -65,4 +76,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {})(AdminClosedOrders)
+export default connect(mapStateToProps, {})(AdminInfulfillmentOrders)

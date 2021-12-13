@@ -49,6 +49,12 @@ const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
               <div>Affiliates</div>
             </div>
           </div>
+          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'categories' ? 'selected' : '')} onClick={() => goPage('categories')}>
+            <div className='d-flex align-items-center'>
+              <div><img src={productImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
+              <div>Categories</div>
+            </div>
+          </div>
           <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'products' ? 'selected' : '')} onClick={() => goPage('products')}>
             <div className='d-flex align-items-center'>
               <div><img src={productImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
@@ -65,6 +71,12 @@ const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
             <div className='d-flex align-items-center'>
               <div><img src={storeImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
               <div>Open Orders</div>
+            </div>
+          </div>
+          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'infulfillmentOrders' ? 'selected' : '')} onClick={() => goPage('infulfillmentOrders')}>
+            <div className='d-flex align-items-center'>
+              <div><img src={storeImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
+              <div>In Fulfillment</div>
             </div>
           </div>
           <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'closedOrders' ? 'selected' : '')} onClick={() => goPage('closedOrders')}>

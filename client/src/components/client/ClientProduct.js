@@ -66,7 +66,7 @@ const ClientProduct = ({ match, baseURL, getProduct, product, addProductToCart }
           </button>
         </div>
         <div className='col-md-6'>
-          <Carousel>
+          <Carousel emulateTouch>
             {product.pictures.map((item, index) =>
               <div key={index}>
                 <img src={baseURL + item} alt='SETIMAGE' />

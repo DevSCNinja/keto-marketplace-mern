@@ -44,14 +44,23 @@ const ShipperOpenedOrders = () => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item, index) =>
                   <tr key={index} onClick={() => history.push('/order/123')} className='cursor-pointer'>
                     <td>846232</td>
                     <td>Anthony Hamilton</td>
                     <td>Keto Elevate™ — C8 MCT Oil Powder</td>
                     <td>Anthony Hamilton</td>
                     <td>$1,541.52</td>
-                    <td><span className='badge badge-info badge-keto-primary'>Shipped</span></td>
+                    <td>
+                      {index % 3 === 0
+                        ? <span className='badge badge-info badge-keto-primary'>Good</span>
+                        : index % 3 === 1
+                          ?
+                          <span className='badge badge-info badge-keto-warning'>Pending</span>
+                          :
+                          <span className='badge badge-info badge-keto-danger'>Overdue</span>
+                      }
+                    </td>
                   </tr>
                 )}
               </tbody>

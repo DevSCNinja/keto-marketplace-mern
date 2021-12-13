@@ -2,14 +2,36 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ReactStars from "react-rating-stars-component"
-import { getProducts, deleteProduct } from '../../actions/product'
+import { getProducts, getCategories, getCategoryProducts, deleteProduct } from '../../actions/product'
 import Spinner from '../layout/Spinner'
 
-const AdminProducts = ({ getProducts, products, baseURL, isLoading, deleteProduct }) => {
+const AdminProducts = ({ getProducts, products, getCategories, categories, getCategoryProducts, baseURL, isLoading, deleteProduct }) => {
+
+  const [category, setCategory] = React.useState('all')
+  const [showProducts, setShowProducts] = React.useState([])
+  const [searchKey, setSearchKey] = React.useState('')
+
+  React.useEffect(() => {
+    setSearchKey('')
+    if (category === 'all')
+      getProducts()
+    else
+      getCategoryProducts(category)
+  }, [getCategoryProducts, getProducts, category])
 
   React.useEffect(() => {
     getProducts()
-  }, [getProducts])
+    getCategories()
+  }, [getProducts, getCategories])
+
+  React.useEffect(() => {
+    setShowProducts(products)
+  }, [products])
+
+  React.useEffect(() => {
+    let tempProducts = products.filter(product => product.name.toLowerCase().indexOf(searchKey.toLowerCase()) > -1)
+    setShowProducts(tempProducts)
+  }, [searchKey, products])
 
   return (
     <div className='admin-products'>
@@ -25,15 +47,21 @@ const AdminProducts = ({ getProducts, products, baseURL, isLoading, deleteProduc
             <select
               type='text'
               className='search-filter'
+              value={category}
+              onChange={e => setCategory(e.target.value)}
             >
-              <option>All</option>
-              <option>Active</option>
-              <option>Pending</option>
+              <option value='all'>All</option>
+              {categories.map((item, index) =>
+                <option key={index} value={item._id}>{item.name}</option>
+              )}
             </select>
             <input
               type='text'
               className='search-filter'
               placeholder='Search'
+              name='searchKey'
+              value={searchKey}
+              onChange={e => setSearchKey(e.target.value)}
             />
           </div>
         </div>
@@ -43,7 +71,7 @@ const AdminProducts = ({ getProducts, products, baseURL, isLoading, deleteProduc
         <div className='col-lg-12'>
           {isLoading ?
             <Spinner />
-            : products.map((item, index) =>
+            : showProducts.map((item, index) =>
               <div key={index} className='row mx-1 bg-white my-2 keto-rounded-lg keto-shadow d-flex align-items-center'>
                 <div className='col-lg-6 py-2'>
                   <div className='d-flex align-items-center'>
@@ -55,7 +83,7 @@ const AdminProducts = ({ getProducts, products, baseURL, isLoading, deleteProduc
                         {item.name}
                       </div>
                       <ReactStars
-                        value={3.5}
+                        value={item.rate}
                         size={24}
                         isHalf={true}
                         edit={false}
@@ -103,8 +131,9 @@ const AdminProducts = ({ getProducts, products, baseURL, isLoading, deleteProduc
 
 const mapStateToProps = state => ({
   products: state.product.products,
+  categories: state.product.categories,
   baseURL: state.admin.baseURL,
   isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, { getProducts, deleteProduct })(AdminProducts)
+export default connect(mapStateToProps, { getProducts, getCategories, getCategoryProducts, deleteProduct })(AdminProducts)

@@ -1,13 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createProduct } from '../../actions/product'
+import { createProduct, getCategories } from '../../actions/product'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminProductCreate = ({ createProduct, isLoading }) => {
+const AdminProductCreate = ({ createProduct, getCategories, categories, isLoading }) => {
   const history = useHistory()
 
+  React.useEffect(() => {
+    getCategories()
+  }, [getCategories])
+
   const [name, setName] = React.useState('')
+  const [category, setCategory] = React.useState('')
   const [price, setPrice] = React.useState(1)
   const [description, setDescription] = React.useState('')
   const [shippingFee, setShippingFee] = React.useState(1)
@@ -39,6 +44,7 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
     e.preventDefault()
     let formData = new FormData()
     formData.append('name', name)
+    formData.append('category', category)
     formData.append('price', price)
     formData.append('shippingFee', shippingFee)
     pictures.forEach(picture => {
@@ -71,6 +77,21 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
                     onChange={e => setName(e.target.value)}
                     required
                   />
+                </div>
+                <div className='form-group'>
+                  <label>Product Category</label>
+                  <select
+                    name='category'
+                    className='form-control product-field'
+                    value={category}
+                    onChange={e => setCategory(e.target.value)}
+                    required
+                  >
+                    <option value=''>SELECT</option>
+                    {categories.map((item, index) => 
+                      <option key={index} value={item._id}>{item.name}</option>
+                    )}
+                  </select>
                 </div>
                 <div className='form-group'>
                   <label>Product Price</label>
@@ -158,7 +179,8 @@ const AdminProductCreate = ({ createProduct, isLoading }) => {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.admin.pageIsLoading
+  isLoading: state.admin.pageIsLoading,
+  categories: state.product.categories
 })
 
-export default connect(mapStateToProps, { createProduct })(AdminProductCreate)
+export default connect(mapStateToProps, { createProduct, getCategories })(AdminProductCreate)

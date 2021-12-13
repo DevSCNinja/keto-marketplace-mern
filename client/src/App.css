@@ -171,6 +171,18 @@ table tbody tr td {
   color: #3DBD8F;
 }
 
+.badge-keto-warning {
+  border: 1px solid #FBD13E !important;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #FBD13E;
+  color: #FBD13E;
+}
+
+.badge-keto-danger {
+  border: 1px solid #FF0000 !important;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #FF0000;
+  color: #FF0000;
+}
+
 .admin-products th, .admin-products td {
   padding: 2px !important;
 }
