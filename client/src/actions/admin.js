@@ -1,4 +1,5 @@
 import api from '../utils/api'
+import { loadUser } from './auth'
 import {
   CURRENT_PAGE_SET,
   SET_PAGE_LOADING,
@@ -106,5 +107,13 @@ export const deleteVendor = vendorID => async dispatch => {
 
   if (res.data.success) {
     dispatch(getVendors())
+  }
+}
+
+export const dontShowAgain = (affiliateID) => async dispatch => {
+  const res = await api.get(`/admin/dontShowAgain/${affiliateID}`)
+
+  if (res.data.success) {
+    dispatch(loadUser())
   }
 }

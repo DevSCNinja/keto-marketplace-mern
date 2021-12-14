@@ -41,9 +41,9 @@ router.get('/getCustomers/:affiliateID', async (req, res) => {
 router.post('/createVendor', async (req, res) => {
   let newVendor = new User({ ...req.body })
   newVendor.type = 'vendor'
-  newVendor.passwordForUpdate = req.body.password,
-    newVendor.password = bcrypt.hashSync(req.body.password, 10),
-    await newVendor.save()
+  newVendor.passwordForUpdate = req.body.password
+  newVendor.password = bcrypt.hashSync(req.body.password, 10)
+  await newVendor.save()
 
   res.json({
     success: true
@@ -83,6 +83,14 @@ router.post('/updateVendor/:id', async (req, res) => {
 
 router.delete('/deleteVendor/:id', async (req, res) => {
   await User.findByIdAndDelete(req.params.id)
+
+  res.json({
+    success: true
+  })
+})
+
+router.get('/dontShowAgain/:id', async (req, res) => {
+  await User.findByIdAndUpdate(req.params.id, { videoSeen: true })
 
   res.json({
     success: true

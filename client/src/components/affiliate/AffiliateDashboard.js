@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Chart from 'react-apexcharts'
 import Vimeo from '@u-wave/react-vimeo'
+import { dontShowAgain } from '../../actions/admin'
 
-const AffiliateDashboard = ({ user }) => {
+const AffiliateDashboard = ({ user, dontShowAgain, videoSeen }) => {
   const options = {
     dataLabels: {
       enabled: true
@@ -27,8 +28,16 @@ const AffiliateDashboard = ({ user }) => {
   ]
 
   React.useEffect(() => {
-    document.getElementById("button").click()
-  })
+    if (user.videoSeen === false) {
+      document.getElementById("button").click()
+    }
+  }, [user])
+
+  React.useEffect(() => {
+    if (videoSeen === true) {
+      document.getElementById("closeButton").click()
+    }
+  }, [videoSeen])
 
   return (
     <div className='admin-dashboard'>
@@ -122,6 +131,10 @@ const AffiliateDashboard = ({ user }) => {
       <div className="modal" id='myModal'>
         <div className="modal-dialog modal-xl">
           <div className="modal-content">
+            <div className="modal-header">
+              <h4 className="modal-title">Intro Video</h4>
+              <button type="button" id='closeButton' className="close" data-dismiss="modal">&times;</button>
+            </div>
             <div className="modal-body text-center">
               <Vimeo
                 video={354682480}
@@ -129,7 +142,7 @@ const AffiliateDashboard = ({ user }) => {
               />
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn bg-keto-primary" data-dismiss="modal">skip</button>
+              <button onClick={e => dontShowAgain(user._id)} type="button" className="btn bg-keto-primary">Don't show it again.</button>
             </div>
           </div>
         </div>
@@ -139,7 +152,8 @@ const AffiliateDashboard = ({ user }) => {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user
+  user: state.auth.user,
+  videoSeen: state.auth.user.videoSeen
 })
 
-export default connect(mapStateToProps, {})(AffiliateDashboard)
+export default connect(mapStateToProps, { dontShowAgain })(AffiliateDashboard)
