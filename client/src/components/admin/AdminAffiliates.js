@@ -57,7 +57,7 @@ const AdminAffiliates = ({ getAffiliates, affiliates }) => {
               <option>Active</option>
               <option>Pending</option>
             </select>
-            <input 
+            <input
               type='text'
               className='search-filter'
               placeholder='Search'
@@ -80,16 +80,6 @@ const AdminAffiliates = ({ getAffiliates, affiliates }) => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) =>
-                  <tr key={index}>
-                    <td>846232</td>
-                    <td>Anthony Hamilton</td>
-                    <td>anthony874@gmail.com</td>
-                    <td>$1,541.52</td>
-                    <td><span className='badge badge-info badge-keto-primary'>Active</span></td>
-                    <td><i className='fa fa-ellipsis-h'></i></td>
-                  </tr>
-                )}
                 {pageAffiliates.map((item, index) =>
                   <tr key={index}>
                     <td>{item._id}</td>
@@ -103,15 +93,20 @@ const AdminAffiliates = ({ getAffiliates, affiliates }) => {
               </tbody>
             </table>
           </div>
-          <div className='text-center pt-3'>
-            {(pageNumber - 1) * 5 + 1} - {(pageNumber - 1) * 5 + pageAffiliates.length} of {affiliates.length}
-          </div>
-          <div className='text-center pt-1'>
-            <i onClick={() => firstPage()} className="material-icons">first_page</i>
-            <i onClick={() => prevPage()} className="material-icons">navigate_before</i>
-            <i onClick={() => nextPage()} className="material-icons">navigate_next</i>
-            <i onClick={() => lastPage()} className="material-icons">last_page</i>
-          </div>
+          {affiliates.length <= 10 ? null
+            :
+            <>
+              <div className='text-center pt-3'>
+                {(pageNumber - 1) * 5 + 1} - {(pageNumber - 1) * 5 + pageAffiliates.length} of {affiliates.length}
+              </div>
+              <div className='text-center pt-1'>
+                <i onClick={() => firstPage()} className="material-icons">first_page</i>
+                <i onClick={() => prevPage()} className="material-icons">navigate_before</i>
+                <i onClick={() => nextPage()} className="material-icons">navigate_next</i>
+                <i onClick={() => lastPage()} className="material-icons">last_page</i>
+              </div>
+            </>
+          }
         </div>
       </div>
     </div>

@@ -4,7 +4,8 @@ import { Link, Redirect } from 'react-router-dom'
 import { clientRegister } from '../../actions/auth'
 import { getAffiliates, getAdmin } from '../../actions/admin'
 
-const ClientRegister = ({ clientRegister, isAuthenticated, getAffiliates, getAdmin, affiliates, admin }) => {
+const ClientRegisterByAffililate = ({ match, clientRegister, isAuthenticated, getAffiliates, getAdmin, affiliates, admin }) => {
+  const affiliateID = match.params.id
 
   React.useEffect(() => {
     getAffiliates()
@@ -15,12 +16,17 @@ const ClientRegister = ({ clientRegister, isAuthenticated, getAffiliates, getAdm
     type: 'client',
     name: '',
     email: '',
-    affiliate: '',
     password: '',
     password2: ''
   })
 
-  const { name, email, affiliate, password, password2 } = formData
+  const [affiliate, setAffiliate] = React.useState('')
+
+  const { name, email, password, password2 } = formData
+
+  React.useEffect(() => {
+    setAffiliate(affiliateID)
+  }, [affiliateID])
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -70,9 +76,9 @@ const ClientRegister = ({ clientRegister, isAuthenticated, getAffiliates, getAdm
         </div>
         <div className='form-group'>
           <label>Affiliate</label>
-          <select className='form-control' name='affiliate' value={affiliate} onChange={onChange} required>
+          <select className='form-control' name='affiliate' disabled value={affiliate} onChange={e => setAffiliate(e.target.value)} required>
             <option value=''>-- Please Select --</option>
-            {affiliates.map((item, index) => 
+            {affiliates.map((item, index) =>
               <option key={index} value={item._id}>{item.name}</option>
             )}
             <option value={admin._id}>{admin.name} (Admin)</option>
@@ -117,4 +123,4 @@ const mapStateToProps = (state) => ({
   admin: state.admin.admin
 })
 
-export default connect(mapStateToProps, { clientRegister, getAffiliates, getAdmin })(ClientRegister)
+export default connect(mapStateToProps, { clientRegister, getAffiliates, getAdmin })(ClientRegisterByAffililate)

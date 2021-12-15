@@ -110,6 +110,7 @@ const AffiliateRegister = ({ affiliateRegister, affiliateIsRegistered, connectUR
             className='form-control'
             name="password"
             value={password}
+            required
             minLength={6}
             onChange={onChange}
           />
@@ -121,6 +122,7 @@ const AffiliateRegister = ({ affiliateRegister, affiliateIsRegistered, connectUR
             className='form-control'
             name="password2"
             value={password2}
+            required
             minLength={6}
             onChange={onChange}
           />

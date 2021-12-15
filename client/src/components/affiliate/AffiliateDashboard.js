@@ -47,6 +47,19 @@ const AffiliateDashboard = ({ user, dontShowAgain, videoSeen }) => {
       <div className='row'>
         <div className='col-lg-12'>
           <div className='p-3 bg-white keto-rounded-lg mt-3 keto-shadow'>
+            <button
+              // onClick={() => navigator.clipboard.writeText(`https://myketomarketplace.com/register/client/${user._id}`)}
+              onClick={() => navigator.clipboard.writeText(`http://localhost:3000/register/client/${user._id}`)}
+              className='btn btn-sm bg-keto-primary'
+            >
+              Copy Customer Registration Link
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col-lg-12'>
+          <div className='p-3 bg-white keto-rounded-lg mt-3 keto-shadow'>
             <div className='font-22'>
               Recent Transactions
             </div>
