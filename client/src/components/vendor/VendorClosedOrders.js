@@ -44,7 +44,7 @@ const VendorInfulfillmentOrders = () => {
               </thead>
               <tbody>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item, index) =>
-                  <tr key={index} onClick={() => history.push('/order/123')} className='cursor-pointer'>
+                  <tr key={index} onClick={() => history.push('/order/123')} className='cursor-pointer hover-keto-light'>
                     <td>846232</td>
                     <td>Anthony Hamilton</td>
                     <td>Keto Elevate™ — C8 MCT Oil Powder</td>

@@ -7,7 +7,8 @@ import {
   ADMIN_LOADED,
   CUSTOMERS_LOADED,
   VENDORS_LOADED,
-  VENDOR_LOADED
+  VENDOR_LOADED,
+  AFFILIATE_LOADED
 } from './types'
 
 export const setCurrentPage = currentPage => async dispatch => {
@@ -32,6 +33,60 @@ export const getAffiliates = () => async dispatch => {
       type: AFFILIATES_LOADED,
       payload: res.data.affiliates
     })
+  }
+}
+
+export const getPendingAffililates = () => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.get('/admin/getPendingAffiliates')
+
+  if (res.data.success) {
+    dispatch({
+      type: AFFILIATES_LOADED,
+      payload: res.data.affiliates
+    })
+    dispatch(setPageIsLoading(false))
+  }
+}
+
+export const getAffiliate = affiliateID => async dispatch => {
+  const res = await api.get(`/admin/getAffiliate/${affiliateID}`)
+
+  if (res.data.success) {
+    dispatch({
+      type: AFFILIATE_LOADED,
+      payload: res.data.affiliate
+    })
+  }
+}
+
+export const approvePendingAffiliate = (history, affiliateID, vendorID) => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.get(`/admin/approvePendingAffiliate/?affiliateID=${affiliateID}&vendorID=${vendorID}`)
+
+  if (res.data.success) {
+    dispatch(getPendingAffililates())
+    history.push('/affiliates-pending')
+  }
+}
+
+export const updateConnectedAccount = (history, affiliateID) => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.get(`/users/updateAffiliateConnectedAccount/${affiliateID}`)
+
+  if (res.data.success) {
+    dispatch(getPendingAffililates())
+    history.push('/affiliates-pending')
+  }
+}
+
+export const deletePendingAffiliate = (history, affiliateID) => async dispatch => {
+  dispatch(setPageIsLoading(true))
+  const res = await api.delete(`/admin/deletePendingAffiliate/${affiliateID}`)
+
+  if (res.data.success) {
+    dispatch(getPendingAffililates())
+    history.push('/affiliates-pending')
   }
 }
 

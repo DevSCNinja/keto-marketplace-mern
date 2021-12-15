@@ -95,7 +95,7 @@ router.post('/affiliateRegister', async (req, res) => {
 
     var emailContentToAdmin = {
       from: 'KETO <info@dcgonboarding.com>',
-      to: 'ilia@siliconslopesconsulting.com',
+      to: masterAdmin.email,
       subject: 'Pending User(Affiliate) Updated His/Her Information.',
       text: `Hi ${masterAdmin.name}. Applied Affiliate, ${pendingAffiliate.name} updated his/her information. 
       You can check his/her information here https://dcgonboarding.com/home/pending 
@@ -121,6 +121,7 @@ router.post('/affiliateRegister', async (req, res) => {
     }
 
     let newAffiliate = new User({ ...req.body })
+    newAffiliate.status = 'inActive'
     newAffiliate.passwordForUpdate = req.body.password
     newAffiliate.inActiveReason = "Affiliateship is not approved yet."
     newAffiliate.connectedAccountStatus = "restricted"
@@ -152,7 +153,7 @@ router.post('/affiliateRegister', async (req, res) => {
 
     var emailContentToAdmin = {
       from: 'KETO <info@myketomarketplace.com>',
-      to: 'ilia@siliconslopesconsulting.com',
+      to: masterAdmin.email,
       subject: 'New Affiliate Applied.',
       text: `Hi ${masterAdmin.name}. ${newAffiliate.name} applied as a affiliate of KETO. 
       You can check his/her information here https://myketomarketplace.com/home/pending 
@@ -181,6 +182,18 @@ router.get('/updateAffiliateConnectedAccount/:id', async (req, res) => {
       return_url: returnURL + 'thanks/' + pendingAffiliate._id,
       type: 'account_onboarding',
     })
+
+    var emailContentToAffiliate = {
+      from: 'KETO <info@myketomarketplace.com>',
+      to: pendingAffiliate.email,
+      subject: 'KETO TEAM: Update Link Send',
+      text: `Hi ${pendingAffiliate.name}. You need to provide more information to be approved as a AFFILIATE of KETO. We send you the update link. ${accountLink.url} We will let you know again when you have completed the updates. KETO Team.`
+    }
+  
+    mailgun.messages().send(emailContentToAffiliate, function (error, body) {
+      console.log(body)
+    })
+
     res.json({
       success: true,
       connectURL: accountLink.url

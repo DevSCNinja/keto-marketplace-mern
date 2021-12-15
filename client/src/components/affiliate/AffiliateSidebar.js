@@ -13,6 +13,10 @@ const AffiliateSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
   let history = useHistory()
 
   const goPage = async location => {
+    if (user.videoSeen === false) {
+      alert('You should see the video first! Please reload the web page.')
+      return
+    }
     setCurrentPage(location)
     await history.push(`/`)
     await history.push(`/dashboard`)

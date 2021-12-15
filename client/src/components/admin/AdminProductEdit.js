@@ -1,15 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getProduct, getCategories, updateProduct } from '../../actions/product'
+import { getVendors } from '../../actions/admin'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminProductEdit = ({ match, getProduct, getCategories, categories, updateProduct, isLoading, product, baseURL }) => {
+const AdminProductEdit = ({ match, getProduct, getCategories, categories, getVendors, vendors, updateProduct, isLoading, product, baseURL }) => {
   const productID = match.params.id
   const history = useHistory()
 
   const [name, setName] = React.useState('')
   const [category, setCategory] = React.useState('')
+  const [vendor, setVendor] = React.useState('')
   const [price, setPrice] = React.useState(1)
   const [description, setDescription] = React.useState('')
   const [shippingFee, setShippingFee] = React.useState(1)
@@ -18,12 +20,15 @@ const AdminProductEdit = ({ match, getProduct, getCategories, categories, update
   const inputRef = React.useRef()
 
   React.useEffect(() => {
+    getCategories()
+    getVendors()
     getProduct(productID)
-  }, [productID, getProduct])
+  }, [productID, getProduct, getCategories, getVendors])
 
   React.useEffect(() => {
     setName(product.name)
     setCategory(product.category)
+    setVendor(product.vendor)
     setPrice(product.price / 100)
     setDescription(product.description)
     setShippingFee(product.shippingFee / 100)
@@ -60,6 +65,7 @@ const AdminProductEdit = ({ match, getProduct, getCategories, categories, update
     let formData = new FormData()
     formData.append('name', name)
     formData.append('category', category)
+    formData.append('vendor', vendor)
     formData.append('price', price)
     formData.append('shippingFee', shippingFee)
     formData.append('oldPictures', oldPictures)
@@ -105,6 +111,21 @@ const AdminProductEdit = ({ match, getProduct, getCategories, categories, update
                   >
                     <option value=''>SELECT</option>
                     {categories.map((item, index) =>
+                      <option key={index} value={item._id}>{item.name}</option>
+                    )}
+                  </select>
+                </div>
+                <div className='form-group'>
+                  <label>Vendor</label>
+                  <select
+                    name='vendor'
+                    className='form-control product-field'
+                    value={vendor}
+                    onChange={e => setVendor(e.target.value)}
+                    required
+                  >
+                    <option value=''>SELECT</option>
+                    {vendors.map((item, index) =>
                       <option key={index} value={item._id}>{item.name}</option>
                     )}
                   </select>
@@ -208,7 +229,8 @@ const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading,
   product: state.product.product,
   categories: state.product.categories,
+  vendors: state.admin.vendors,
   baseURL: state.admin.baseURL
 })
 
-export default connect(mapStateToProps, { getProduct, getCategories, updateProduct })(AdminProductEdit)
+export default connect(mapStateToProps, { getProduct, getCategories, getVendors, updateProduct })(AdminProductEdit)

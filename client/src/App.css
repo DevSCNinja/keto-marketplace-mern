@@ -32,6 +32,10 @@ hr {
   font-size: 18px !important;
 }
 
+.font-19 {
+  font-size: 19px !important;
+}
+
 .font-21 {
   font-size: 21px !important;
 }
@@ -265,4 +269,8 @@ table tbody tr td {
 
 .min-width-250 {
   min-width: 250px;
+}
+
+.hover-keto-light:hover {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #C2C9D1;
 }

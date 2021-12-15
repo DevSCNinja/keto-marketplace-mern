@@ -8,6 +8,8 @@ import VendorOrderDetail from './VendorOrderDetail'
 import VendorClosedOrders from './VendorClosedOrders'
 import VendorOpenedOrders from './VendorOpenedOrders'
 import VendorInfulfillmentOrders from './VendorInfulfillmentOrders'
+import VendorAffiliatesPending from './VendorAffiliatesPending'
+import VendorAffiliatePending from './VendorAffiliatePending'
 
 const Vendor = () => {
 
@@ -21,6 +23,8 @@ const Vendor = () => {
             <PrivateRoute exact path="/infulfillmentOrders" component={VendorInfulfillmentOrders} />
             <PrivateRoute exact path="/closedOrders" component={VendorClosedOrders} />
             <PrivateRoute exact path="/order/:id" component={VendorOrderDetail} />
+            <PrivateRoute exact path="/affiliates-pending" component={VendorAffiliatesPending} />
+            <PrivateRoute exact path="/affiliate-pending/:id" component={VendorAffiliatePending} />
             <PrivateRoute exact path="/settings" component={VendorSettings} />
           </Router>
         </div>

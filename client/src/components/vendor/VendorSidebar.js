@@ -6,6 +6,7 @@ import { setCurrentPage } from '../../actions/admin'
 import settingsImage from '../../img/icons/settings.PNG'
 import storeImage from '../../img/icons/store.PNG'
 import logoutImage from '../../img/icons/logout.PNG'
+import affiliatesImage from '../../img/icons/affiliates.PNG'
 
 const VendorSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
   let history = useHistory()
@@ -48,6 +49,12 @@ const VendorSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
             <div className='d-flex align-items-center'>
               <div><img src={storeImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
               <div>Closed Orders</div>
+            </div>
+          </div>
+          <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'affiliates-pending' ? 'selected' : '')} onClick={() => goPage('affiliates-pending')}>
+            <div className='d-flex align-items-center'>
+              <div><img src={affiliatesImage} alt='SETIMG' height='20px' width='20px' className='mr-3' /></div>
+              <div>Pending Affiliates</div>
             </div>
           </div>
         </div>

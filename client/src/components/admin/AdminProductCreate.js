@@ -1,18 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createProduct, getCategories } from '../../actions/product'
+import { getVendors } from '../../actions/admin'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminProductCreate = ({ createProduct, getCategories, categories, isLoading }) => {
+const AdminProductCreate = ({ createProduct, getCategories, categories, getVendors, vendors, isLoading }) => {
   const history = useHistory()
 
   React.useEffect(() => {
     getCategories()
-  }, [getCategories])
+    getVendors()
+  }, [getCategories, getVendors])
 
   const [name, setName] = React.useState('')
   const [category, setCategory] = React.useState('')
+  const [vendor, setVendor] = React.useState('')
   const [price, setPrice] = React.useState(1)
   const [description, setDescription] = React.useState('')
   const [shippingFee, setShippingFee] = React.useState(1)
@@ -45,6 +48,7 @@ const AdminProductCreate = ({ createProduct, getCategories, categories, isLoadin
     let formData = new FormData()
     formData.append('name', name)
     formData.append('category', category)
+    formData.append('vendor', vendor)
     formData.append('price', price)
     formData.append('shippingFee', shippingFee)
     pictures.forEach(picture => {
@@ -89,6 +93,21 @@ const AdminProductCreate = ({ createProduct, getCategories, categories, isLoadin
                   >
                     <option value=''>SELECT</option>
                     {categories.map((item, index) => 
+                      <option key={index} value={item._id}>{item.name}</option>
+                    )}
+                  </select>
+                </div>
+                <div className='form-group'>
+                  <label>Vendor</label>
+                  <select
+                    name='vendor'
+                    className='form-control product-field'
+                    value={vendor}
+                    onChange={e => setVendor(e.target.value)}
+                    required
+                  >
+                    <option value=''>SELECT</option>
+                    {vendors.map((item, index) => 
                       <option key={index} value={item._id}>{item.name}</option>
                     )}
                   </select>
@@ -180,7 +199,8 @@ const AdminProductCreate = ({ createProduct, getCategories, categories, isLoadin
 
 const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading,
-  categories: state.product.categories
+  categories: state.product.categories,
+  vendors: state.admin.vendors
 })
 
-export default connect(mapStateToProps, { createProduct, getCategories })(AdminProductCreate)
+export default connect(mapStateToProps, { createProduct, getCategories, getVendors })(AdminProductCreate)

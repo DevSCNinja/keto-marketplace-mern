@@ -36,6 +36,7 @@ router.post('/createProduct', fileUpload.fields([{ name: 'pictures' }]), async (
   let newProduct = new Product({
     name: req.body.name,
     category: req.body.category,
+    vendor: req.body.vendor,
     price: req.body.price * 100,
     shippingFee: req.body.shippingFee * 100,
     description: req.body.description,
@@ -106,6 +107,7 @@ router.post('/updateProduct/:id', fileUpload.fields([{ name: 'pictures' }]), asy
   await Product.findByIdAndUpdate(productID, {
     name: req.body.name,
     category: req.body.category,
+    vendor: req.body.vendor,
     price: req.body.price * 100,
     pictures: pictures,
     description: req.body.description,
