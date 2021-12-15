@@ -18,7 +18,7 @@ const ClientAcademyView = ({ match, getCourseByID, course }) => {
       <div className='row'>
         <div className='col-lg-12'>
           <div className='p-3 bg-white keto-rounded-lg mt-3 keto-shadow'>
-            <p>{course.description}</p>
+            <p className='course-description'>{course.description}</p>
             <div className="text-center">
               {course.video === null ? null
                 :

@@ -274,3 +274,7 @@ table tbody tr td {
 .hover-keto-light:hover {
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #C2C9D1;
 }
+
+.course-description {
+  -webkit-user-modify: read-write-plaintext-only;
+}

@@ -127,11 +127,12 @@ const AffiliateRegister = ({ affiliateRegister, affiliateIsRegistered, connectUR
         </div>
         <div className="form-group">
           <label>What do you bring to the table?</label>
-          <input
+          <textarea
             type="text"
             className='form-control'
             name="bringTo"
             value={bringTo}
+            rows={4}
             required
             onChange={onChange}
           />

@@ -55,7 +55,7 @@ const VendorAffiliatePending = ({ isLoading, match, vendorID, getAffiliate, appr
             <div className='col-lg-7'>
               <div className='my-2'>
                 <div className='font-bold font-19'>What do you bring to the table?</div>
-                <div className='font-18'>{affiliate.bringTo}</div>
+                <div className='font-18 course-description'>{affiliate.bringTo}</div>
               </div>
               <div className='my-2'>
                 <div className='font-bold font-19'>Connected Stripe Status</div>
