@@ -5,7 +5,7 @@ import formatDate from '../../utils/formatDate'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const VendorAffiliatePending = ({ isLoading, match, vendorID, getAffiliate, approvePendingAffiliate, updateConnectedAccount, deletePendingAffiliate, affiliate }) => {
+const AssistantAffiliatePending = ({ isLoading, match, assistantID, getAffiliate, approvePendingAffiliate, updateConnectedAccount, deletePendingAffiliate, affiliate }) => {
   const affiliateID = match.params.id
   const history = useHistory()
 
@@ -14,7 +14,7 @@ const VendorAffiliatePending = ({ isLoading, match, vendorID, getAffiliate, appr
   }, [getAffiliate, affiliateID])
 
   return (
-    <div className='vendor-affiliate'>
+    <div className='assistant-affiliate'>
       <div>
         <div className='font-36 pt-3'>Pending Affiliate Details</div>
       </div>
@@ -81,7 +81,7 @@ const VendorAffiliatePending = ({ isLoading, match, vendorID, getAffiliate, appr
             <div className='col-lg-12'>
               <div className='text-right'>
                 {affiliate.connectedAccountStatus === 'enabled' ?
-                  <button className='btn bg-keto-primary mr-2 my-1' onClick={() => approvePendingAffiliate(history, affiliate._id, vendorID)}><i className="fa fa-check mr-1"></i>Approve</button>
+                  <button className='btn bg-keto-primary mr-2 my-1' onClick={() => approvePendingAffiliate(history, affiliate._id, assistantID)}><i className="fa fa-check mr-1"></i>Approve</button>
                   :
                   <button className='btn btn-info mr-2 my-1' onClick={() => updateConnectedAccount(history, affiliate._id)}><i className="fa fa-refresh mr-1"></i>Send Update Link via Email</button>}
                 <button className='btn btn-secondary my-1' onClick={() => deletePendingAffiliate(history, affiliate._id)}><i className="fa fa-trash mr-1"></i>Delete</button>
@@ -97,9 +97,9 @@ const VendorAffiliatePending = ({ isLoading, match, vendorID, getAffiliate, appr
 }
 
 const mapStateToProps = state => ({
-  vendorID: state.auth.user._id,
+  assistantID: state.auth.user._id,
   affiliate: state.admin.affiliate,
   isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, { getAffiliate, approvePendingAffiliate, updateConnectedAccount, deletePendingAffiliate })(VendorAffiliatePending)
+export default connect(mapStateToProps, { getAffiliate, approvePendingAffiliate, updateConnectedAccount, deletePendingAffiliate })(AssistantAffiliatePending)

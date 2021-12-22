@@ -12,7 +12,7 @@ const mailgunDomain = config.get('mailgun.domain')
 var mailgun = require('mailgun-js')({ apiKey: mailgunApiKey, domain: mailgunDomain })
 
 router.get('/getAffiliates', async (req, res) => {
-  const affiliates = await User.find({ type: 'affiliate' })
+  const affiliates = await User.find({ type: 'affiliate', status: 'active' })
 
   res.json({
     success: true,
@@ -46,7 +46,7 @@ router.get('/approvePendingAffiliate', async (req, res) => {
     inActiveReason: '',
     passwordForUpdate: affiliate.passwordForUpdate,
     password: bcrypt.hashSync(affiliate.passwordForUpdate, 10),
-    byVendor: req.query.vendorID
+    byAssistant: req.query.assistantID
   }, { new: true })
 
   var emailContentToAffiliate = {
@@ -121,37 +121,37 @@ router.get('/getCustomers/:affiliateID', async (req, res) => {
   })
 })
 
-router.post('/createVendor', async (req, res) => {
-  let newVendor = new User({ ...req.body })
-  newVendor.type = 'vendor'
-  newVendor.passwordForUpdate = req.body.password
-  newVendor.password = bcrypt.hashSync(req.body.password, 10)
-  await newVendor.save()
+router.post('/createAssistant', async (req, res) => {
+  let newAssistant = new User({ ...req.body })
+  newAssistant.type = 'assistant'
+  newAssistant.passwordForUpdate = req.body.password
+  newAssistant.password = bcrypt.hashSync(req.body.password, 10)
+  await newAssistant.save()
 
   res.json({
     success: true
   })
 })
 
-router.get('/getVendors', async (req, res) => {
-  const vendors = await User.find({ type: 'vendor' })
+router.get('/getAssistants', async (req, res) => {
+  const assistants = await User.find({ type: 'assistant' })
 
   res.json({
     success: true,
-    vendors
+    assistants
   })
 })
 
-router.get('/getVendor/:id', async (req, res) => {
-  const vendor = await User.findById(req.params.id)
+router.get('/getAssistant/:id', async (req, res) => {
+  const assistant = await User.findById(req.params.id)
 
   res.json({
     success: true,
-    vendor
+    assistant
   })
 })
 
-router.post('/updateVendor/:id', async (req, res) => {
+router.post('/updateAssistant/:id', async (req, res) => {
   await User.findByIdAndUpdate(req.params.id, {
     name: req.body.name,
     email: req.body.email,
@@ -164,7 +164,7 @@ router.post('/updateVendor/:id', async (req, res) => {
   })
 })
 
-router.delete('/deleteVendor/:id', async (req, res) => {
+router.delete('/deleteAssistant/:id', async (req, res) => {
   await User.findByIdAndDelete(req.params.id)
 
   res.json({

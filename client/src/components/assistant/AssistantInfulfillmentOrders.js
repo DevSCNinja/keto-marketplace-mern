@@ -2,14 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
 
-const VendorOpenedOrders = () => {
+const AssistantInfulfillmentOrders = () => {
   const history = useHistory()
 
   return (
     <div className='admin-orders'>
       <div className='row'>
         <div className='col-lg-6'>
-          <div className='font-36 pt-3'>Open Orders</div>
+          <div className='font-36 pt-3'>In Fulfillment</div>
         </div>
         <div className='col-lg-6'>
           <div className='text-right pt-4'>
@@ -76,4 +76,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {})(VendorOpenedOrders)
+export default connect(mapStateToProps, {})(AssistantInfulfillmentOrders)

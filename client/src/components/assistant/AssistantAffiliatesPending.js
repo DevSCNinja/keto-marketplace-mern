@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getPendingAffililates } from '../../actions/admin'
 import { useHistory } from 'react-router'
 
-const VendorAffiliatesPending = ({ getPendingAffililates, affiliates }) => {
+const AssistantAffiliatesPending = ({ getPendingAffililates, affiliates }) => {
   const history = useHistory()
 
   React.useEffect(() => {
@@ -75,4 +75,4 @@ const mapStateToProps = state => ({
   affiliates: state.admin.affiliates
 })
 
-export default connect(mapStateToProps, { getPendingAffililates })(VendorAffiliatesPending)
+export default connect(mapStateToProps, { getPendingAffililates })(AssistantAffiliatesPending)

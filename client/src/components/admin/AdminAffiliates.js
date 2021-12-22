@@ -67,32 +67,35 @@ const AdminAffiliates = ({ getAffiliates, affiliates }) => {
       </div>
       <div className='row my-3'>
         <div className='col-md-12'>
-          <div className='table-responsive bg-white keto-rounded-lg keto-shadow'>
-            <table className='table'>
-              <thead className='thead-light'>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Earnings</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {pageAffiliates.map((item, index) =>
-                  <tr key={index}>
-                    <td>{item._id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
-                    <td>$0</td>
-                    <td><span className='badge badge-info badge-keto-primary'>Active</span></td>
-                    <td><i className='fa fa-ellipsis-h'></i></td>
+          {affiliates.length === 0 ? <div className='text-center my-5 py-5'>There are no Affiliates yet.</div>
+            :
+            <div className='table-responsive bg-white keto-rounded-lg keto-shadow'>
+              <table className='table'>
+                <thead className='thead-light'>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Earnings</th>
+                    <th>Status</th>
+                    <th></th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {pageAffiliates.map((item, index) =>
+                    <tr key={index}>
+                      <td>{item._id}</td>
+                      <td>{item.name}</td>
+                      <td>{item.email}</td>
+                      <td>$0</td>
+                      <td><span className='badge badge-info badge-keto-primary'>Active</span></td>
+                      <td><i className='fa fa-ellipsis-h'></i></td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          }
           {affiliates.length <= 10 ? null
             :
             <>

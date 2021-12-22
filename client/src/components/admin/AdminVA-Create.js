@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createVendor } from '../../actions/admin'
+import { createAssistant } from '../../actions/admin'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminVACreate = ({ createVendor, isLoading }) => {
+const AdminVACreate = ({ createAssistant, isLoading }) => {
   const history = useHistory()
 
   const [name, setName] = React.useState('')
@@ -15,7 +15,7 @@ const AdminVACreate = ({ createVendor, isLoading }) => {
   const onSubmit = e => {
     e.preventDefault()
     if (password === password2) {
-      createVendor({ name, email, password }, history)
+      createAssistant({ name, email, password }, history)
     } else {
       alert('Passwords are not matched.')
     }
@@ -93,4 +93,4 @@ const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, { createVendor })(AdminVACreate)
+export default connect(mapStateToProps, { createAssistant })(AdminVACreate)

@@ -60,9 +60,9 @@ export const getAffiliate = affiliateID => async dispatch => {
   }
 }
 
-export const approvePendingAffiliate = (history, affiliateID, vendorID) => async dispatch => {
+export const approvePendingAffiliate = (history, affiliateID, assistantID) => async dispatch => {
   dispatch(setPageIsLoading(true))
-  const res = await api.get(`/admin/approvePendingAffiliate/?affiliateID=${affiliateID}&vendorID=${vendorID}`)
+  const res = await api.get(`/admin/approvePendingAffiliate/?affiliateID=${affiliateID}&assistantID=${assistantID}`)
 
   if (res.data.success) {
     dispatch(getPendingAffililates())
@@ -112,56 +112,56 @@ export const getCustomers = (affiliateID = 'admin') => async dispatch => {
   }
 }
 
-export const createVendor = (formData, history) => async dispatch => {
+export const createAssistant = (formData, history) => async dispatch => {
   dispatch(setPageIsLoading(true))
-  const res = await api.post('/admin/createVendor', formData)
+  const res = await api.post('/admin/createAssistant', formData)
 
   if (res.data.success) {
-    dispatch(getVendors())
-    history.push('/vendors')
+    dispatch(getAssistants())
+    history.push('/assistants')
   }
 }
 
-export const getVendors = () => async dispatch => {
+export const getAssistants = () => async dispatch => {
   dispatch(setPageIsLoading(true))
-  const res = await api.get('/admin/getVendors')
+  const res = await api.get('/admin/getAssistants')
 
   if (res.data.success) {
     dispatch({
       type: VENDORS_LOADED,
-      payload: res.data.vendors
+      payload: res.data.assistants
     })
     dispatch(setPageIsLoading(false))
   }
 }
 
-export const getVendor = vendorID => async dispatch => {
-  const res = await api.get(`/admin/getVendor/${vendorID}`)
+export const getAssistant = assistantID => async dispatch => {
+  const res = await api.get(`/admin/getAssistant/${assistantID}`)
 
   if (res.data.success) {
     dispatch({
       type: VENDOR_LOADED,
-      payload: res.data.vendor
+      payload: res.data.assistant
     })
   }
 }
 
-export const updateVendor = (vendorID, formData, history) => async dispatch => {
+export const updateAssistant = (assistantID, formData, history) => async dispatch => {
   dispatch(setPageIsLoading(true))
-  const res = await api.post(`/admin/updateVendor/${vendorID}`, formData)
+  const res = await api.post(`/admin/updateAssistant/${assistantID}`, formData)
 
   if (res.data.success) {
-    dispatch(getVendors())
-    history.push('/vendors')
+    dispatch(getAssistants())
+    history.push('/assistants')
   }
 }
 
-export const deleteVendor = vendorID => async dispatch => {
+export const deleteAssistant = assistantID => async dispatch => {
   dispatch(setPageIsLoading(true))
-  const res = await api.delete(`/admin/deleteVendor/${vendorID}`)
+  const res = await api.delete(`/admin/deleteAssistant/${assistantID}`)
 
   if (res.data.success) {
-    dispatch(getVendors())
+    dispatch(getAssistants())
   }
 }
 

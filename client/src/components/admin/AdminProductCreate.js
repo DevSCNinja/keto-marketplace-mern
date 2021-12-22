@@ -1,17 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createProduct, getCategories } from '../../actions/product'
-import { getVendors } from '../../actions/admin'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminProductCreate = ({ createProduct, getCategories, categories, getVendors, vendors, isLoading }) => {
+const AdminProductCreate = ({ createProduct, getCategories, categories, isLoading }) => {
   const history = useHistory()
 
   React.useEffect(() => {
     getCategories()
-    getVendors()
-  }, [getCategories, getVendors])
+  }, [getCategories])
 
   const [name, setName] = React.useState('')
   const [category, setCategory] = React.useState('')
@@ -107,9 +105,9 @@ const AdminProductCreate = ({ createProduct, getCategories, categories, getVendo
                     required
                   >
                     <option value=''>SELECT</option>
-                    {vendors.map((item, index) => 
-                      <option key={index} value={item._id}>{item.name}</option>
-                    )}
+                    <option value='groceryVendor'>Grocery Vendor</option>
+                    <option value='industrialProductVendor'>Industrial Product Vendor</option>
+                    <option value='cosmeticsVendor'>Cosmetics Vendor</option>
                   </select>
                 </div>
                 <div className='form-group'>
@@ -200,7 +198,6 @@ const AdminProductCreate = ({ createProduct, getCategories, categories, getVendo
 const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading,
   categories: state.product.categories,
-  vendors: state.admin.vendors
 })
 
-export default connect(mapStateToProps, { createProduct, getCategories, getVendors })(AdminProductCreate)
+export default connect(mapStateToProps, { createProduct, getCategories })(AdminProductCreate)

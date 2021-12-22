@@ -17,8 +17,8 @@ const initialState = {
   affiliate: {},
   admin: {},
   customers: [],
-  vendors: [],
-  vendor: {}
+  assistants: [],
+  assistant: {}
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -64,13 +64,13 @@ const adminReducer = (state = initialState, action) => {
     case VENDORS_LOADED: {
       return {
         ...state,
-        vendors: payload
+        assistants: payload
       }
     }
     case VENDOR_LOADED: {
       return {
         ...state,
-        vendor: payload
+        assistant: payload
       }
     }
     default:

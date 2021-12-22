@@ -61,12 +61,12 @@ const AdminOrderDetail = () => {
                 </div>
               </div>
             </div>
-            <div className='vendors'>
-              {[1, 2, 3].map((vendorItem, vendorIndex) =>
-                <div key={vendorIndex} className='vendor my-3'>
+            <div className='assistants'>
+              {[1, 2, 3].map((assistantItem, assistantIndex) =>
+                <div key={assistantIndex} className='assistant my-3'>
                   <div className='row my-2'>
                     <div className='col-lg-4'>
-                      <div className='font-18 font-bold'>Vendor {vendorIndex + 1}</div>
+                      <div className='font-18 font-bold'>Assistant {assistantIndex + 1}</div>
                       {[1, 2, 3].map((productItem, productIndex) =>
                         <div key={productIndex} className='row my-2'>
                           <div className='col-lg-10'>

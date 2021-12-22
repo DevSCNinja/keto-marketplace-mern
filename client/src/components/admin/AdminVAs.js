@@ -1,22 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getVendors, deleteVendor } from '../../actions/admin'
+import { getAssistants, deleteAssistant } from '../../actions/admin'
 import Spinner from '../layout/Spinner'
 
-const AdminVAs = ({ getVendors, vendors, isLoading, deleteVendor }) => {
+const AdminVAs = ({ getAssistants, assistants, isLoading, deleteAssistant }) => {
 
   React.useEffect(() => {
-    getVendors()
-  }, [getVendors])
+    getAssistants()
+  }, [getAssistants])
 
   return (
-    <div className='admin-vendors'>
+    <div className='admin-assistants'>
       <div className='row'>
         <div className='col-lg-6'>
           <div className='d-flex align-items-center pt-3'>
             <div className='font-36 mr-2'>Virtual Assistants</div>
-            <Link to='create-vendor'><i className='fa fa-plus-circle font-24 cursor-pointer pt-2'></i></Link>
+            <Link to='create-assistant'><i className='fa fa-plus-circle font-24 cursor-pointer pt-2'></i></Link>
           </div>
         </div>
       </div>
@@ -35,16 +35,16 @@ const AdminVAs = ({ getVendors, vendors, isLoading, deleteVendor }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {vendors.map((item, index) =>
+                  {assistants.map((item, index) =>
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{item.name}</td>
                       <td>{item.email}</td>
                       <td>
-                        <Link to={`/edit-vendor/${item._id}`} className='btn bg-keto-secondary mr-1'>
+                        <Link to={`/edit-assistant/${item._id}`} className='btn bg-keto-secondary mr-1'>
                           <i className='fa fa-edit'></i>
                         </Link>
-                        <button className='btn bg-keto-secondary' onClick={() => window.confirm('Are you sure?') ? deleteVendor(item._id) : null}>
+                        <button className='btn bg-keto-secondary' onClick={() => window.confirm('Are you sure?') ? deleteAssistant(item._id) : null}>
                           <i className='fa fa-trash-o'></i>
                         </button>
                       </td>
@@ -61,8 +61,8 @@ const AdminVAs = ({ getVendors, vendors, isLoading, deleteVendor }) => {
 }
 
 const mapStateToProps = state => ({
-  vendors: state.admin.vendors,
+  assistants: state.admin.assistants,
   isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, { getVendors, deleteVendor })(AdminVAs)
+export default connect(mapStateToProps, { getAssistants, deleteAssistant })(AdminVAs)

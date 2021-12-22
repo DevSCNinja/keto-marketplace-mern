@@ -11,6 +11,9 @@ import ClientSettings from './ClientSettings'
 import ClientCart from './ClientCart'
 import ClientCheckout from './ClientCheckout'
 import ClientAcademyView from './ClientAcademyView'
+import ClientOrders from './ClientOrders'
+import ClientThanks from './ClientThanks'
+import ClientOrderDetail from './ClientOrderDetail'
 
 const Client = ({loadCartData}) => {
 
@@ -28,7 +31,10 @@ const Client = ({loadCartData}) => {
             <PrivateRoute exact path="/academy/:id" component={ClientAcademyView} />
             <PrivateRoute exact path="/store" component={ClientStore} />
             <PrivateRoute exact path="/cart" component={ClientCart} />
+            <PrivateRoute exact path="/orders" component={ClientOrders} />
+            <PrivateRoute exact path="/order/:id" component={ClientOrderDetail} />
             <PrivateRoute exact path="/checkout" component={ClientCheckout} />
+            <PrivateRoute exact path="/thanks" component={ClientThanks} />
             <PrivateRoute exact path="/product/:id" component={ClientProduct} />
             <PrivateRoute exact path="/settings" component={ClientSettings} />
           </Router>

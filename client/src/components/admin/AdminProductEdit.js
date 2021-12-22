@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getProduct, getCategories, updateProduct } from '../../actions/product'
-import { getVendors } from '../../actions/admin'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminProductEdit = ({ match, getProduct, getCategories, categories, getVendors, vendors, updateProduct, isLoading, product, baseURL }) => {
+const AdminProductEdit = ({ match, getProduct, getCategories, categories, updateProduct, isLoading, product, baseURL }) => {
   const productID = match.params.id
   const history = useHistory()
 
@@ -21,9 +20,8 @@ const AdminProductEdit = ({ match, getProduct, getCategories, categories, getVen
 
   React.useEffect(() => {
     getCategories()
-    getVendors()
     getProduct(productID)
-  }, [productID, getProduct, getCategories, getVendors])
+  }, [productID, getProduct, getCategories])
 
   React.useEffect(() => {
     setName(product.name)
@@ -125,9 +123,9 @@ const AdminProductEdit = ({ match, getProduct, getCategories, categories, getVen
                     required
                   >
                     <option value=''>SELECT</option>
-                    {vendors.map((item, index) =>
-                      <option key={index} value={item._id}>{item.name}</option>
-                    )}
+                    <option value='groceryVendor'>Grocery Vendor</option>
+                    <option value='industrialProductVendor'>Industrial Product Vendor</option>
+                    <option value='cosmeticsVendor'>Cosmetics Vendor</option>
                   </select>
                 </div>
                 <div className='form-group'>
@@ -229,8 +227,7 @@ const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading,
   product: state.product.product,
   categories: state.product.categories,
-  vendors: state.admin.vendors,
   baseURL: state.admin.baseURL
 })
 
-export default connect(mapStateToProps, { getProduct, getCategories, getVendors, updateProduct })(AdminProductEdit)
+export default connect(mapStateToProps, { getProduct, getCategories, updateProduct })(AdminProductEdit)

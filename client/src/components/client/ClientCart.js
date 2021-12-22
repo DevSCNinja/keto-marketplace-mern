@@ -2,13 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Star from '../layout/Stars'
 import { useHistory } from 'react-router'
-import { removeProductFromCart } from '../../actions/cart'
+import { removeProductFromCart, loadCartData } from '../../actions/cart'
 
-const ClientCart = ({ cartLines, baseURL, removeProductFromCart }) => {
+const ClientCart = ({ loadCartData, cartLines, baseURL, removeProductFromCart }) => {
   const history = useHistory()
 
   const [subTotal, setSubTotal] = React.useState(0)
   const [shipping, setShipping] = React.useState(0)
+
+  React.useEffect(() => {
+    loadCartData()
+  }, [loadCartData])
 
   React.useEffect(() => {
     let subTotal = 0, shipping = 0
@@ -117,4 +121,4 @@ const mapStateToProps = state => ({
   baseURL: state.admin.baseURL
 })
 
-export default connect(mapStateToProps, { removeProductFromCart })(ClientCart)
+export default connect(mapStateToProps, { removeProductFromCart, loadCartData })(ClientCart)

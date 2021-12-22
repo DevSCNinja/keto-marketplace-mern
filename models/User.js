@@ -55,7 +55,7 @@ const UserSchema = new mongoose.Schema({
   status: {
     type: String
   },
-  byVendor: {
+  byAssistant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },

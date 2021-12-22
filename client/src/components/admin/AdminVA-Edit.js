@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getVendor, updateVendor } from '../../actions/admin'
+import { getAssistant, updateAssistant } from '../../actions/admin'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
 
-const AdminVAEdit = ({ match, getVendor, updateVendor, isLoading, vendor }) => {
-  const vendorID = match.params.id
+const AdminVAEdit = ({ match, getAssistant, updateAssistant, isLoading, assistant }) => {
+  const assistantID = match.params.id
   const history = useHistory()
 
   const [name, setName] = React.useState('')
@@ -14,26 +14,26 @@ const AdminVAEdit = ({ match, getVendor, updateVendor, isLoading, vendor }) => {
   const [password2, setPassword2] = React.useState('')
 
   React.useEffect(() => {
-    getVendor(vendorID)
-  }, [vendorID, getVendor])
+    getAssistant(assistantID)
+  }, [assistantID, getAssistant])
 
   React.useEffect(() => {
-    setName(vendor.name)
-    setEmail(vendor.email)
-    setPassword(vendor.passwordForUpdate)
-  }, [vendor])
+    setName(assistant.name)
+    setEmail(assistant.email)
+    setPassword(assistant.passwordForUpdate)
+  }, [assistant])
 
   const onSubmit = e => {
     e.preventDefault()
     if (password === password2) {
-      updateVendor(vendorID, { name, email, password }, history)
+      updateAssistant(assistantID, { name, email, password }, history)
     } else {
       alert('Passwords are not matched.')
     }
   }
 
   return (
-    <div className='admin-create-vendor'>
+    <div className='admin-create-assistant'>
       <div className='font-36 pt-3'>Edit Virtual Assistant</div>
       <div className='row my-3'>
         <div className='col-md-12'>
@@ -102,7 +102,7 @@ const AdminVAEdit = ({ match, getVendor, updateVendor, isLoading, vendor }) => {
 
 const mapStateToProps = state => ({
   isLoading: state.admin.pageIsLoading,
-  vendor: state.admin.vendor,
+  assistant: state.admin.assistant,
 })
 
-export default connect(mapStateToProps, { getVendor, updateVendor })(AdminVAEdit)
+export default connect(mapStateToProps, { getAssistant, updateAssistant })(AdminVAEdit)

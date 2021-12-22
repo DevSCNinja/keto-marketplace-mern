@@ -1,7 +1,8 @@
 import {
   SET_CART_DATA,
   PRODUCT_ADDED_TO_CART,
-  CART_LINE_REMOVED
+  CART_LINE_REMOVED,
+  CART_ALL_LINE_REMOVED
 } from './types'
 
 export const loadCartData = () => async dispatch => {
@@ -25,5 +26,11 @@ export const removeProductFromCart = productID => async dispatch => {
   dispatch({
     type: CART_LINE_REMOVED,
     payload: productID
+  })
+}
+
+export const removeAllCartData = () => async dispatch => {
+  dispatch({
+    type: CART_ALL_LINE_REMOVED,
   })
 }

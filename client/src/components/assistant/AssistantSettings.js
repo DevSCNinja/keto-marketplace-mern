@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const VendorSettings = () => {
+const AssistantSettings = () => {
 
   return (
     <div>
-      Vendor Settings
+      Assistant Settings
     </div>
   )
 }
@@ -14,4 +14,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, {})(VendorSettings)
+export default connect(mapStateToProps, {})(AssistantSettings)

@@ -9,8 +9,7 @@ const ProductSchema = new mongoose.Schema({
     ref: 'category'
   },
   vendor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    type: String
   },
   price: {
     type: Number

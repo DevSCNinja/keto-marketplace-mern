@@ -1,7 +1,8 @@
 import {
   SET_CART_DATA,
   PRODUCT_ADDED_TO_CART,
-  CART_LINE_REMOVED
+  CART_LINE_REMOVED,
+  CART_ALL_LINE_REMOVED
 } from '../actions/types'
 
 const initialState = {
@@ -34,6 +35,13 @@ const cartReducer = (state = initialState, action) => {
     case CART_LINE_REMOVED: {
       state.lines = state.lines.filter(line => line.product._id !== payload)
       localStorage.setItem("cart", JSON.stringify(state.lines))
+      return {
+        ...state,
+      }
+    }
+    case CART_ALL_LINE_REMOVED: {
+      state.lines = []
+      localStorage.setItem('cart', JSON.stringify(state.lines))
       return {
         ...state,
       }

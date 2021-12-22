@@ -5,6 +5,8 @@ import admin from './admin'
 import product from './product'
 import cart from './cart'
 import course from './course'
+import stripe from './stripe'
+import order from './order'
 
 export default combineReducers({
   alert,
@@ -12,5 +14,7 @@ export default combineReducers({
   admin,
   product,
   cart,
-  course
+  course,
+  stripe,
+  order,
 })

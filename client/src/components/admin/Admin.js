@@ -50,9 +50,9 @@ const Admin = () => {
             <PrivateRoute exact path="/academy/:id" component={AdminAcademyView} />
             <PrivateRoute exact path="/academy-create" component={AdminAcademyCreate} />
             <PrivateRoute exact path="/academy-edit/:id" component={AdminAcademyEdit} />
-            <PrivateRoute exact path="/vendors" component={AdminVAs} />
-            <PrivateRoute exact path="/create-vendor" component={AdminVACreate} />
-            <PrivateRoute exact path="/edit-vendor/:id" component={AdminVAEdit} />
+            <PrivateRoute exact path="/assistants" component={AdminVAs} />
+            <PrivateRoute exact path="/create-assistant" component={AdminVACreate} />
+            <PrivateRoute exact path="/edit-assistant/:id" component={AdminVAEdit} />
             <PrivateRoute exact path="/settings" component={AdminSettings} />
           </Router>
         </div>

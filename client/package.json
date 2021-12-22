@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.7.0",
+    "@stripe/stripe-js": "^1.22.0",
     "@u-wave/react-vimeo": "^0.9.5",
     "apexcharts": "^3.29.0",
     "react": "^17.0.1",
