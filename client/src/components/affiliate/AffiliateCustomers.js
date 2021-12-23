@@ -79,14 +79,6 @@ const AffiliateCustomers = ({ affiliateID, getCustomers, customers }) => {
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) =>
-                  <tr key={index}>
-                    <td>846232</td>
-                    <td>Anthony Hamilton</td>
-                    <td>anthony874@gmail.com</td>
-                    <td>$1,541.52</td>
-                  </tr>
-                )}
                 {customers.map((item, index) =>
                   <tr key={index}>
                     <td>{item._id}</td>

@@ -11,6 +11,9 @@ const OrderItemSchema = new mongoose.Schema({
   price: {
     type: String
   },
+  vendor: {
+    type: String
+  },
   shippingFee: {
     type: String
   },
@@ -18,7 +21,8 @@ const OrderItemSchema = new mongoose.Schema({
     type: Number
   },
   trackingNumber: {
-    type: String
+    type: String,
+    default: ''
   },
   date: {
     type: Date,

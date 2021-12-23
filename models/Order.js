@@ -55,7 +55,7 @@ const OrderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: 'Good'
+    default: 'opened'
   },
   date: {
     type: Date,

@@ -63,6 +63,7 @@ router.post('/createOrder/:clientID', async (req, res) => {
       order: newOrder._id,
       productName: line.product.name,
       price: line.product.price,
+      vendor: line.product.vendor,
       shippingFee: line.product.shippingFee,
       quantity: line.quantity,
       trackingNumber: ''
@@ -77,7 +78,34 @@ router.post('/createOrder/:clientID', async (req, res) => {
 })
 
 router.get('/getAllOrders', async (req, res) => {
-  const orders = await Order.find()
+  const orders = await Order.find().populate('client')
+
+  res.json({
+    success: true,
+    orders
+  })
+})
+
+router.get('/getAllOpenedOrders', async (req, res) => {
+  const orders = await Order.find({ status: 'opened' }).populate('client')
+
+  res.json({
+    success: true,
+    orders
+  })
+})
+
+router.get('/getAllInfulfillmentOrders', async (req, res) => {
+  const orders = await Order.find({ status: 'infulfillment' }).populate('client')
+
+  res.json({
+    success: true,
+    orders
+  })
+})
+
+router.get('/getAllClosedOrders', async (req, res) => {
+  const orders = await Order.find({ status: 'closed' }).populate('client')
 
   res.json({
     success: true,
@@ -103,7 +131,38 @@ router.get('/getOrder/:orderID', async (req, res) => {
   })
 })
 
+router.get('/getOrderItems/:orderID', async (req, res) => {
+  const orderItems = await OrderItem.find({ order: req.params.orderID })
+
+  res.json({
+    success: true,
+    orderItems
+  })
+})
+
 router.get('/updateOrder', async (req, res) => {
+
+  res.json({
+    success: true
+  })
+})
+
+router.post('/addTrackingNumber', async (req, res) => {
+  const { orderItemIDs, trackingNumber } = req.body
+
+  orderItemIDs.forEach(async orderItemID => {
+    await OrderItem.findByIdAndUpdate(orderItemID, { trackingNumber })
+  })
+
+  res.json({
+    success: true
+  })
+})
+
+router.post('/setOrderStatus', async (req, res) => {
+  const { status, orderID } = req.body
+
+  await Order.findByIdAndUpdate(orderID, { status })
 
   res.json({
     success: true

@@ -1,9 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
+import { getAllClosedOrders } from '../../actions/order'
+import formateDate from '../../utils/formatDate'
+import Spinner from '../layout/Spinner'
 
-const AdminClosedOrders = () => {
+const AdminClosedOrders = ({ getAllClosedOrders, orders, isLoading }) => {
   const history = useHistory()
+
+  React.useEffect(() => {
+    getAllClosedOrders()
+  }, [getAllClosedOrders])
 
   return (
     <div className='admin-orders'>
@@ -32,28 +39,33 @@ const AdminClosedOrders = () => {
       <div className='row my-3'>
         <div className='col-md-12'>
           <div className='table-responsive bg-white keto-rounded-lg keto-shadow'>
-            <table className='table'>
-              <thead className='thead-light'>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Order Placed</th>
-                  <th>Items Ordered</th>
-                  <th>Ship To</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>
-                  <tr key={index} onClick={() => history.push('/order/123')} className='cursor-pointer'>
-                    <td>846232</td>
-                    <td>Anthony Hamilton</td>
-                    <td>Keto Elevate™ — C8 MCT Oil Powder</td>
-                    <td>Anthony Hamilton</td>
-                    <td>$1,541.52</td>
+            {isLoading
+              ?
+              <Spinner />
+              :
+              <table className='table'>
+                <thead className='thead-light'>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Order Placed</th>
+                    <th>Order Date</th>
+                    <th>Ship To</th>
+                    <th>Total</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {orders.map((item, index) =>
+                    <tr key={index} onClick={() => history.push(`/order/${item._id}`)} className='cursor-pointer'>
+                      <td>{item._id}</td>
+                      <td>{item.client.name}</td>
+                      <td>{formateDate(item.date)}</td>
+                      <td>{item.shippingFirstName} {item.shippingLastName}</td>
+                      <td>${item.subTotal / 100 + item.shippingFee / 100}</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            }
           </div>
         </div>
       </div>
@@ -62,7 +74,8 @@ const AdminClosedOrders = () => {
 }
 
 const mapStateToProps = state => ({
-
+  orders: state.order.orders,
+  isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, {})(AdminClosedOrders)
+export default connect(mapStateToProps, { getAllClosedOrders })(AdminClosedOrders)

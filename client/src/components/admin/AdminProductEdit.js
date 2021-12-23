@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { getProduct, getCategories, updateProduct } from '../../actions/product'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
+import getVendors from '../../utils/getVendors'
 
 const AdminProductEdit = ({ match, getProduct, getCategories, categories, updateProduct, isLoading, product, baseURL }) => {
   const productID = match.params.id
   const history = useHistory()
+  const vendors = getVendors()
 
   const [name, setName] = React.useState('')
   const [category, setCategory] = React.useState('')
@@ -123,9 +125,9 @@ const AdminProductEdit = ({ match, getProduct, getCategories, categories, update
                     required
                   >
                     <option value=''>SELECT</option>
-                    <option value='groceryVendor'>Grocery Vendor</option>
-                    <option value='industrialProductVendor'>Industrial Product Vendor</option>
-                    <option value='cosmeticsVendor'>Cosmetics Vendor</option>
+                    {vendors.map((item, index) =>
+                      <option key={index} value={item}>{item}</option>
+                    )}
                   </select>
                 </div>
                 <div className='form-group'>

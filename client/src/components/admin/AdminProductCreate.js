@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { createProduct, getCategories } from '../../actions/product'
 import { useHistory } from 'react-router'
 import Spinner from '../layout/Spinner'
+import getVendors from '../../utils/getVendors'
 
 const AdminProductCreate = ({ createProduct, getCategories, categories, isLoading }) => {
   const history = useHistory()
+  const vendors = getVendors()
 
   React.useEffect(() => {
     getCategories()
@@ -90,7 +92,7 @@ const AdminProductCreate = ({ createProduct, getCategories, categories, isLoadin
                     required
                   >
                     <option value=''>SELECT</option>
-                    {categories.map((item, index) => 
+                    {categories.map((item, index) =>
                       <option key={index} value={item._id}>{item.name}</option>
                     )}
                   </select>
@@ -105,9 +107,9 @@ const AdminProductCreate = ({ createProduct, getCategories, categories, isLoadin
                     required
                   >
                     <option value=''>SELECT</option>
-                    <option value='groceryVendor'>Grocery Vendor</option>
-                    <option value='industrialProductVendor'>Industrial Product Vendor</option>
-                    <option value='cosmeticsVendor'>Cosmetics Vendor</option>
+                    {vendors.map((item, index) =>
+                      <option key={index} value={item}>{item}</option>
+                    )}
                   </select>
                 </div>
                 <div className='form-group'>

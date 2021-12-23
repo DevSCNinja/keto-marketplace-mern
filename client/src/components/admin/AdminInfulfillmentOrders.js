@@ -1,9 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
+import { getAllInfulfillmentOrders } from '../../actions/order'
+import formateDate from '../../utils/formatDate'
+import calculateTimeStatus from '../../utils/calculateTimeStatus'
+import Spinner from '../layout/Spinner'
 
-const AdminInfulfillmentOrders = () => {
+const AdminInfulfillmentOrders = ({ getAllInfulfillmentOrders, orders, isLoading }) => {
   const history = useHistory()
+
+  React.useEffect(() => {
+    getAllInfulfillmentOrders()
+  }, [getAllInfulfillmentOrders])
 
   return (
     <div className='admin-orders'>
@@ -32,39 +40,46 @@ const AdminInfulfillmentOrders = () => {
       <div className='row my-3'>
         <div className='col-md-12'>
           <div className='table-responsive bg-white keto-rounded-lg keto-shadow'>
-            <table className='table'>
-              <thead className='thead-light'>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Order Placed</th>
-                  <th>Items Ordered</th>
-                  <th>Ship To</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item, index) =>
-                  <tr key={index} onClick={() => history.push('/order/123')} className='cursor-pointer'>
-                    <td>846232</td>
-                    <td>Anthony Hamilton</td>
-                    <td>Keto Elevate™ — C8 MCT Oil Powder</td>
-                    <td>Anthony Hamilton</td>
-                    <td>$1,541.52</td>
-                    <td>
-                      {index % 3 === 0
-                        ? <span className='badge badge-info badge-keto-primary'>Good</span>
-                        : index % 3 === 1
-                          ?
-                          <span className='badge badge-info badge-keto-warning'>Pending</span>
-                          :
-                          <span className='badge badge-info badge-keto-danger'>Overdue</span>
-                      }
-                    </td>
+            {isLoading
+              ?
+              <Spinner />
+              :
+              <table className='table'>
+                <thead className='thead-light'>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Order Placed</th>
+                    <th>Order Date</th>
+                    <th>Ship To</th>
+                    <th>Total</th>
+                    <th>Time Status</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {orders.map((item, index) =>
+                    <tr key={index} onClick={() => history.push(`/order/${item._id}`)} className='cursor-pointer'>
+                      <td>{item._id}</td>
+                      <td>{item.client.name}</td>
+                      <td>{formateDate(item.date)}</td>
+                      <td>{item.shippingFirstName} {item.shippingLastName}</td>
+                      <td>${item.subTotal / 100 + item.shippingFee / 100}</td>
+                      <td>
+                        {calculateTimeStatus(item) === 'Good'
+                          ?
+                          <span className='badge badge-info badge-keto-primary'>Good</span>
+                          :
+                          calculateTimeStatus(item) === 'Pending'
+                            ?
+                            <span className='badge badge-info badge-keto-warning'>Pending</span>
+                            :
+                            <span className='badge badge-info badge-keto-danger'>Overdue</span>
+                        }
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            }
           </div>
         </div>
       </div>
@@ -73,7 +88,8 @@ const AdminInfulfillmentOrders = () => {
 }
 
 const mapStateToProps = state => ({
-
+  orders: state.order.orders,
+  isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, {})(AdminInfulfillmentOrders)
+export default connect(mapStateToProps, { getAllInfulfillmentOrders })(AdminInfulfillmentOrders)

@@ -1,103 +1,125 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { getOrder, getOrderItems, setOrderStatus } from '../../actions/order'
+import formatDate from '../../utils/formatDate'
+import getVendors from '../../utils/getVendors'
+import AdminOrderDetailVendor from './AdminOrderDetailVendor'
+import Spinner from '../layout/Spinner'
 
-const AdminOrderDetail = () => {
+const AdminOrderDetail = ({ match, getOrder, order, getOrderItems, orderItems, isLoading, setOrderStatus }) => {
+  const orderID = match.params.id
+  const vendors = getVendors()
+  const [status, setStatus] = React.useState('')
+
+  React.useEffect(() => {
+    getOrder(orderID)
+    getOrderItems(orderID)
+  }, [getOrder, getOrderItems, orderID])
+
+  React.useEffect(() => {
+    setStatus(order.status)
+  }, [order])
+
+  const changeOrderStatus = status => {
+    let allTracked = true
+    orderItems.forEach(orderItem => {
+      if (orderItem.trackingNumber === '') {
+        allTracked = false
+      }
+    })
+    if (status === 'closed' && allTracked === false) {
+      alert('All Tracking Numbers Must Be Placed To Close')
+      return
+    }
+    setStatus(status)
+    setOrderStatus(status, orderID)
+  }
 
   return (
     <div className='admin-orders'>
       <div className='d-flex align-items-center pt-3'>
         <div className='font-36 mr-3'>Order Details</div>
-        <select className='font-12 badge bg-keto-primary'>
-          <option>Open</option>
-          <option>In Fulfillment</option>
-          <option>Closed</option>
+        <select
+          className='font-12 badge bg-keto-primary'
+          value={status}
+          onChange={e => changeOrderStatus(e.target.value)}
+        >
+          <option value='open'>Open</option>
+          <option value='infulfillment'>In Fulfillment</option>
+          <option value='closed'>Closed</option>
         </select>
       </div>
-      <div className='row my-3'>
-        <div className='col-lg-12'>
-          <div className='p-3 bg-white keto-rounded-lg keto-shadow'>
-            <div className='row'>
-              <div className='col-lg-5'>
-                <div className='font-18 font-bold'>
-                  Ordered on September 18, 2021
-                </div>
-              </div>
-              <div className='col-lg-7'>
-                <div className='font-18 font-bold'>
-                  Order# 112-7958708-9707400
-                </div>
-              </div>
-            </div>
-            <div className='row my-3'>
-              <div className='col-lg-4'>
-                <div className='font-18 font-bold'>
-                  Shipping Address
-                </div>
-                <div className='pt-2'>
-                  <div>Sankum Landry Marcel Some</div>
-                  <div>13385 S ENSIGN POINT LN APT 15108</div>
-                  <div>DRAPER, UT 84020-8013</div>
-                  <div>United States</div>
-                </div>
-              </div>
-              <div className='col-lg-4'>
-                <div className='font-18 font-bold'>
-                  Payment Method
-                </div>
-                <div className='pt-2'>
-                  Visa **** 3719
-                </div>
-              </div>
-              <div className='col-lg-4'>
-                <div className='font-18 font-bold'>
-                  Order Summary
-                </div>
-                <div className='pt-2'>
-                  <div>Item(s) Subtotal: $8.43</div>
-                  <div>Shipping & Handling: $5.99</div>
-                  <div>Total before tax: $14.42</div>
-                  <div>Estimated tax to be collected: $0.61</div>
-                  <div><b>Grand Total</b>: $15.03</div>
-                </div>
-              </div>
-            </div>
-            <div className='assistants'>
-              {[1, 2, 3].map((assistantItem, assistantIndex) =>
-                <div key={assistantIndex} className='assistant my-3'>
-                  <div className='row my-2'>
-                    <div className='col-lg-4'>
-                      <div className='font-18 font-bold'>Assistant {assistantIndex + 1}</div>
-                      {[1, 2, 3].map((productItem, productIndex) =>
-                        <div key={productIndex} className='row my-2'>
-                          <div className='col-lg-10'>
-                            Exogenous Ketone Base
-                          </div>
-                          <div className='col-lg-2'> x 4</div>
-                        </div>
-                      )}
-                    </div>
-                    <div className='col-lg-8'>
-                      <div className='font-18 font-bold'>Tracking Number</div>
-                      <div className='my-2'>
-                        <input className='min-width-250' />
-                      </div>
-                      <div className='my-2'>
-                        <button className='btn btn-sm bg-keto-primary min-width-250'>Save</button>
-                      </div>
-                    </div>
+      {(order._id === undefined || isLoading) ? <Spinner />
+        :
+        <div className='row my-3'>
+          <div className='col-lg-12'>
+            <div className='p-3 bg-white keto-rounded-lg keto-shadow'>
+              <div className='row'>
+                <div className='col-lg-5'>
+                  <div className='font-18 font-bold'>
+                    Ordered on {formatDate(order.date)}
                   </div>
                 </div>
-              )}
+                <div className='col-lg-7'>
+                  <div className='font-18 font-bold'>
+                    Order# {order._id}
+                  </div>
+                </div>
+              </div>
+              <div className='row my-3'>
+                <div className='col-lg-4'>
+                  <div className='font-18 font-bold'>
+                    Shipping Address
+                  </div>
+                  <div className='pt-2'>
+                    <div><span style={{ display: 'inline-block', width: '80px' }}>Name:</span> {order.shippingFirstName} {order.shippingLastName}</div>
+                    <div><span style={{ display: 'inline-block', width: '80px' }}>Address:</span> {order.shippingAddress}</div>
+                    <div><span style={{ display: 'inline-block', width: '80px' }}>City:</span> {order.shippingCity}</div>
+                    <div><span style={{ display: 'inline-block', width: '80px' }}>State:</span> {order.shippingState}</div>
+                    <div><span style={{ display: 'inline-block', width: '80px' }}>Zip:</span> {order.shippingZipCode}</div>
+                  </div>
+                </div>
+                <div className='col-lg-4'>
+                  <div className='font-18 font-bold'>
+                    Payment Intent
+                  </div>
+                  <div className='pt-2'>
+                    {order.paymentIntent}
+                  </div>
+                </div>
+                <div className='col-lg-4'>
+                  <div className='font-18 font-bold'>
+                    Order Summary
+                  </div>
+                  <div className='pt-2'>
+                    <div>Item(s) Subtotal: ${order.subTotal / 100}</div>
+                    <div>Shipping & Handling: ${order.shippingFee / 100}</div>
+                    <div><b>Grand Total</b>: ${order.subTotal / 100 + order.shippingFee / 100}</div>
+                  </div>
+                </div>
+              </div>
+              <div className='vendors'>
+                {vendors.map((vendor, vendorIndex) =>
+                  <AdminOrderDetailVendor
+                    key={vendorIndex}
+                    orderID={orderID}
+                    vendor={vendor}
+                    orderItems={orderItems}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      }
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-
+  order: state.order.order,
+  orderItems: state.order.orderItems,
+  isLoading: state.admin.pageIsLoading
 })
 
-export default connect(mapStateToProps, {})(AdminOrderDetail)
+export default connect(mapStateToProps, { getOrder, getOrderItems, setOrderStatus })(AdminOrderDetail)

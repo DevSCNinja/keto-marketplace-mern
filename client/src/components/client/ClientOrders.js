@@ -52,6 +52,7 @@ const ClientOrders = ({ getOrders, orders, clientID, isLoading }) => {
                       <th>Ordered Date</th>
                       <th>Ship To</th>
                       <th>Total</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,6 +62,12 @@ const ClientOrders = ({ getOrders, orders, clientID, isLoading }) => {
                         <td>{formateDate(item.date)}</td>
                         <td>{item.shippingFirstName} {item.shippingLastName}</td>
                         <td>${item.subTotal / 100 + item.shippingFee / 100}</td>
+                        <td>
+                          {item.status === 'closed'
+                            ? <span className='badge badge-info badge-keto-primary'>Closed</span>
+                            : <span className='badge badge-info badge-keto-danger'>Active</span>
+                          }
+                        </td>
                       </tr>
                     )}
                   </tbody>
