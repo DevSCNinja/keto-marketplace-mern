@@ -29,7 +29,7 @@ const ClientCheckout = ({ cartLines, getStripePubKey, stripePubKey, createPaymen
 
   React.useEffect(() => {
     if (stripePubKey) {
-      let tempPromise = loadStripe('pk_test_51IbQDDAKiPAbmj9e0ri74IheRVMxwGCo04zQcfXsSf9hRn35wfRNApb4roP51p7YjUdOzoXfHtjd7KQnxx1Y14mo0097t7uo9E')
+      let tempPromise = loadStripe(stripePubKey)
       setStripePromise(tempPromise)
     }
   }, [stripePubKey])

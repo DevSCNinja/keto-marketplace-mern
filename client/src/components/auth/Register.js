@@ -13,20 +13,18 @@ const Register = ({ isAuthenticated }) => {
         <div className='col-lg-4 col-md-3'></div>
         <div className='col-lg-4 col-md-6'>
           <div className='row'>
-            <div className='col-1'></div>
-            <div className='col-10'>
+            <div className='col-12'>
               <div className='row' style={{ height: '35vh' }}></div>
               <div className='row height-center'>
                 <div className='col'>
                   <div className='text-center'>
-                    <Link className='btn btn-register' to='/register/affiliate'>Affiliate Registration</Link>
-                    <Link className='btn btn-register mt-3' to='/register/client'>Customer Registration</Link>
+                    <Link className='btn btn-register mx-1' to='/register/affiliate'>Affiliate Registration</Link>
+                    <Link className='btn btn-register mx-1' to='/register/client'>Customer Registration</Link>
                     <Link className='btn btn-register mt-3' to='/login'>Login</Link>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='col-1'></div>
           </div>
         </div>
         <div className='col-lg-4 col-md-3'></div>
