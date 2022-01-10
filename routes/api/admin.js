@@ -38,6 +38,8 @@ router.get('/getAffiliates', async (req, res) => {
 
   await newUser2.save()
 
+  console.log('OK')
+
   res.json({
     success: true,
     affiliates
